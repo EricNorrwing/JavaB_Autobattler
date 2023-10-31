@@ -18,17 +18,17 @@ public class GameController {
 
     //Trades blows between player and enemy
     public void attack(Player player, Enemy enemy) {
-        int health = enemy.getHealth();
-
-
-        int damage = enemy.getHealth()-player.getBaseDamage();
-        enemy.setHealth(enemy.getHealth()-player.getBaseDamage());
-        System.out.println("You did " + damage + " to " + enemy.getName());
+        int damageDealt = player.getDamage();
+        enemy.setHealth(enemy.getHealth()-damageDealt);
+        System.out.println("You did " + damageDealt + " to " + enemy.getName() + " and it has "+ enemy.getHealth() + " hp left!");
         System.out.println(enemy.getHealth());
     }
 
+    //Randomizes affixes/Suffixes and generates a name for the enemy
     public Enemy generateEnemy() {
-        return new Enemy((int) (Math.random() * 10 ), (int) (Math.random() * 10), (int) (Math.random() * 10));
+        Enemy enemy = new Enemy((int) (Math.random() * 10 ), (int) (Math.random() * 10), (int) (Math.random() * 10));
+        enemy.generateName();
+        return enemy;
     }
 }
 

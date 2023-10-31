@@ -60,8 +60,11 @@ public abstract class AUnit {
         this.level = level;
     }
 
-    public int getBaseDamage() {
-        return baseDamage;
+    public int getDamage() {
+        int minDamage = baseDamage-5;
+        int maxDamage = baseDamage+5;
+        int rand = (int)(Math.random() * maxDamage-minDamage) + 1;
+        return baseDamage*strength/10;
     }
 
     public void setBaseDamage(int baseDamage) {
