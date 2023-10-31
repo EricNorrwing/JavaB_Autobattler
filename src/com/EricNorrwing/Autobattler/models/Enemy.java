@@ -1,6 +1,10 @@
 package com.EricNorrwing.Autobattler.models;
 
 public class Enemy extends AUnit{
+    String[] typeArray = {" Wraith", " Bandit", " Dragon"," Zombie", " Ghost", " Mimic"," Lich", " Wolf", " Witch"," Duelist"};
+    String[] affixArray = {"Greater", "Juggernaught", "Agile","Quick", "Strong", "Weak","Small", "Keen", "Massive","Coward"};
+    String[] suffixArray =
+            {" the frail", " the Light", " of massive loot"," of Brutality", " of Deception", " of Vengeance"," of Chaos", " of Laziness", " of Ineptitude"," the uneducated"};
 
     //TODO generate list of affixes and suffixes, and their respective modifiers
     private String name;

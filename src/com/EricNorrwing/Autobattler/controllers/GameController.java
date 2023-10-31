@@ -28,7 +28,7 @@ public class GameController {
     }
 
     public Enemy generateEnemy() {
-        return new Enemy((int) (Math.random() * 10 + 1), (int) (Math.random() * 10 + 1), (int) (Math.random() * 10 + 1));
+        return new Enemy((int) (Math.random() * 10 ), (int) (Math.random() * 10), (int) (Math.random() * 10));
     }
 }
 

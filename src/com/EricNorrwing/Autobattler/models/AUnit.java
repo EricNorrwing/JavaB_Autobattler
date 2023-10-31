@@ -3,7 +3,6 @@ package com.EricNorrwing.Autobattler.models;
 public abstract class AUnit {
     private String name;
     private int strength = 10;
-    private int intelligence = 10;
     private int agility = 10;
     private int health = 100;
     private int experience = 0;
@@ -27,14 +26,6 @@ public abstract class AUnit {
 
     public void setStrength(int strength) {
         this.strength = strength;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
     }
 
     public int getAgility() {
