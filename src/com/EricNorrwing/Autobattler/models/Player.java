@@ -7,6 +7,11 @@ public class Player extends AUnit{
         setName(name);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 
 
 

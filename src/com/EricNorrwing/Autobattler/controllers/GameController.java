@@ -6,18 +6,30 @@ public class GameController {
 
     // TODO Everything
 
+    private Player player;
+    private Enemy enemy;
 
-    Player player = new Player("Krillinator");
-    Enemy enemy = generateEnemy();
-    attack(player, enemy);
-
-    public void attack(Player player,Enemy enemy){
-        System.out.println(player);
+    public GameController() {
+        // Constructor
+        player = new Player("Krillinator");
+        enemy = generateEnemy();
+        attack(player, enemy);
     }
 
-    public Enemy generateEnemy(){
-        return new Enemy((int) (Math.random()*10+1), (int) (Math.random()*10+1), (int) (Math.random()*10+1));
+    //Trades blows between player and enemy
+    public void attack(Player player, Enemy enemy) {
+        int health = enemy.getHealth();
+
+
+        int damage = enemy.getHealth()-player.getBaseDamage();
+        enemy.setHealth(enemy.getHealth()-player.getBaseDamage());
+        System.out.println("You did " + damage + " to " + enemy.getName());
+        System.out.println(enemy.getHealth());
     }
 
-
+    public Enemy generateEnemy() {
+        return new Enemy((int) (Math.random() * 10 + 1), (int) (Math.random() * 10 + 1), (int) (Math.random() * 10 + 1));
+    }
 }
+
+
