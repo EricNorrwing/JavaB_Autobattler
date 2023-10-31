@@ -20,7 +20,7 @@ public class GameController {
     public void attack(Player player, Enemy enemy) {
         int damageDealt = player.getDamage();
         enemy.setHealth(enemy.getHealth()-damageDealt);
-        System.out.println("You did " + damageDealt + " to " + enemy.getName() + " and it has "+ enemy.getHealth() + " hp left!");
+        System.out.println("You did " + damageDealt + " damage to " + enemy.getName() + " and it has "+ enemy.getHealth() + " hp left!");
         System.out.println(enemy.getHealth());
     }
 

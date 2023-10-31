@@ -63,8 +63,7 @@ public abstract class AUnit {
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
-        int rand = (int)(Math.random() * maxDamage-minDamage) + 1;
-        return baseDamage*strength/10;
+        return ((int)(Math.random() * maxDamage-minDamage) + 1)*strength/10;
     }
 
     public void setBaseDamage(int baseDamage) {
