@@ -13,6 +13,7 @@ public class GameController {
         // Constructor
         player = new Player("Krillinator");
         enemy = generateEnemy();
+
         attack(player, enemy);
     }
 
