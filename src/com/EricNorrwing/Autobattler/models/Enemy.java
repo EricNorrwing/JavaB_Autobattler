@@ -3,11 +3,12 @@ package com.EricNorrwing.Autobattler.models;
 public class Enemy extends AUnit{
 
     //TODO generate list of affixes and suffixes, and their respective modifiers
+    private String name;
     private int type;
     private int affix;
     private int suffix;
 
-    public Enemy() {
+    public Enemy(int type, int affix, int suffix) {
         this.type = type;
         this.affix = affix;
         this.suffix = suffix;

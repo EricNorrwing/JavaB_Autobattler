@@ -1,23 +1,23 @@
 package com.EricNorrwing.Autobattler.controllers;
 
-import com.EricNorrwing.Autobattler.models.AUnit;
-import com.EricNorrwing.Autobattler.models.Enemy;
-import com.EricNorrwing.Autobattler.models.Player;
+import com.EricNorrwing.Autobattler.models.*;
 
 public class GameController {
 
     // TODO Everything
 
+
     Player player = new Player("Krillinator");
-    generateEnemy();
+    Enemy enemy = generateEnemy();
+    attack(player, enemy);
 
-
-    public void runTurn(AUnit player,AUnit enemy){
-
-
+    public void attack(Player player,Enemy enemy){
+        System.out.println(player);
     }
 
-    public void generateEnemy(){
-        Enemy enemy = new Enemy((Math.random()*10+1),(Math.random()*10+1),(Math.random()*10+1));
+    public Enemy generateEnemy(){
+        return new Enemy((int) (Math.random()*10+1), (int) (Math.random()*10+1), (int) (Math.random()*10+1));
     }
+
+
 }

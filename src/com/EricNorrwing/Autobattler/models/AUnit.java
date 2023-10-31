@@ -1,6 +1,7 @@
 package com.EricNorrwing.Autobattler.models;
 
 public abstract class AUnit {
+    private String name;
     private int strength = 10;
     private int intelligence = 10;
     private int agility = 10;
@@ -8,6 +9,17 @@ public abstract class AUnit {
     private int experience = 0;
     private int level = 1;
     private int baseDamage = 10;
+
+    public AUnit(){
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getStrength() {
         return strength;
