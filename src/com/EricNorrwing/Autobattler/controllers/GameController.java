@@ -16,17 +16,18 @@ public class GameController  {
 
         player = new Player("Krillinator");
         enemy = generateEnemy();
+        do {
+            runFight(player, enemy);
+            }while(!AUnit.checkIfDead(player, enemy));
 
-        for (int i = 0; i < 30; i++){
-            do {
-                AUnit.attack(player, enemy);
-                Thread.sleep(500);
-                AUnit.attack(enemy,player);
-            }while(!AUnit.checkIfDead(enemy));
-            System.out.println(RED_BOLD + "You have defeated " + enemy.getName() + RESET);
-            player.setExperience(player.getExperience()+10*enemy.getLevel());
-
+        if (player.getHealth()>= 0) {
+            System.out.println("You have defeated " + printEnemyName() + " and have been rewarded " + (player.getExperience() + 105 * enemy.getLevel()) + " experience");
+            player.setExperience((player.getExperience() + 10 * enemy.getLevel()));
+        } else {
+            System.out.println(printEnemyName() + " have defeated " + printPlayerName() + " and the game is over");
         }
+
+
     }
 
 
@@ -36,6 +37,27 @@ public class GameController  {
         Enemy enemy = new Enemy((int) (Math.random() * 10 ), (int) (Math.random() * 10), (int) (Math.random() * 10));
         enemy.generateName();
         return enemy;
+    }
+
+    //Trades blows and turns between player and enemy
+    // TODO Change delays
+    public void runFight(Player player, Enemy enemy) throws InterruptedException {
+        if (player.isPlayerTurn()) {
+            AUnit.attack(player, enemy);
+            Thread.sleep(1);
+            player.setPlayerTurn(!player.isPlayerTurn());
+        } else {
+            AUnit.attack(enemy, player);
+            Thread.sleep(1);
+            player.setPlayerTurn(!player.isPlayerTurn());
+        }
+    }
+    public String printPlayerName(Player ){
+        return CYAN + player.getName() + RESET;
+    }
+
+    public String printEnemyName(){
+        return RED + player.getName() + RESET;
     }
 
 }

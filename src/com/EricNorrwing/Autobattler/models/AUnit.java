@@ -60,6 +60,10 @@ public abstract class AUnit {
     }
 
     public void setExperience(int experience) {
+        if (this.experience > 100){
+            level++;
+            System.out.println("You have leveled up! new level is: " + this.level);
+        }
         this.experience = experience;
     }
 
@@ -90,14 +94,14 @@ public abstract class AUnit {
         if (AUnit.hitLands(attacker, target)) {
             int damageDealt = attacker.getDamage();
             target.setHealth(target.getHealth() - damageDealt);
-            System.out.println(attacker.getName() + " did " + damageDealt + " damage to " + target.getName() + " and it has " + target.getHealth() + " hp left!");
+            System.out.println(attacker.getName() + " did " + RED + damageDealt + RESET + " damage to " + target.getName() + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
         } else {
             System.out.println(target.getName()+ BLUE + " dodged the attack from " + RESET + attacker.getName() + "!");
         }
     }
 
-    public static boolean checkIfDead(AUnit target){
-        return target.getHealth()<= 0;
+    public static boolean checkIfDead(AUnit attacker, AUnit target){
+        return attacker.getHealth() <= 0 || target.getHealth()<= 0;
     }
 
 }
