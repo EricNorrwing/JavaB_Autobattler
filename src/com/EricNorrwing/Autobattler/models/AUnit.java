@@ -94,9 +94,9 @@ public abstract class AUnit {
         if (AUnit.hitLands(attacker, target)) {
             int damageDealt = attacker.getDamage();
             target.setHealth(target.getHealth() - damageDealt);
-            System.out.println(attacker.getName() + " did " + RED + damageDealt + RESET + " damage to " + target.getName() + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
+            System.out.println(BLUE + attacker.getName() + RESET + " did " + RED + damageDealt + RESET + " damage to " + RED + target.getName() + RESET + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
         } else {
-            System.out.println(target.getName()+ BLUE + " dodged the attack from " + RESET + attacker.getName() + "!");
+            System.out.println(RED + target.getName() + RESET + " " + BLUE + "DODGED" + RESET + " the attack from " + BLUE + attacker.getName() + RESET + "!");
         }
     }
 
@@ -104,4 +104,38 @@ public abstract class AUnit {
         return attacker.getHealth() <= 0 || target.getHealth()<= 0;
     }
 
+    //Color prints
+
+    public String printPlayerName(AUnit player){
+        return CYAN + player.getName() + RESET;
+    }
+
+    public String printEnemyName(AUnit enemy){
+        return RED + enemy.getName() + RESET;
+    }
 }
+
+
+// TODO FIX THIS CHAT GPT THING AND TRULY UNDERSTAND IT
+/*
+public class CharacterColor {
+    public static final String PLAYER_COLOR = BLUE;
+    public static final String ENEMY_COLOR = RED;
+    public static final String RESET_COLOR = RESET;
+}
+++
+
+public static void attack(AUnit attacker, AUnit target) {
+    String attackerColor = (attacker instanceof Player) ? CharacterColor.PLAYER_COLOR : CharacterColor.ENEMY_COLOR;
+    String targetColor = (target instanceof Player) ? CharacterColor.PLAYER_COLOR : CharacterColor.ENEMY_COLOR;
+
+    if (AUnit.hitLands(attacker, target)) {
+        int damageDealt = attacker.getDamage();
+        target.setHealth(target.getHealth() - damageDealt);
+        System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " did " + RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
+    } else {
+        System.out.println(targetColor + target.getName() + RESET_COLOR + " " + BLUE + "DODGED" + RESET + " the attack from " + attackerColor + attacker.getName() + RESET_COLOR + "!");
+    }
+}
+
+ */

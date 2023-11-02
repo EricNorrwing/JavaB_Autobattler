@@ -11,22 +11,19 @@ public class GameController  {
     private Player player;
     private Enemy enemy;
 
-    public GameController() throws InterruptedException {
-        // Constructor
-
+    public void runGame() throws InterruptedException {
         player = new Player("Krillinator");
         enemy = generateEnemy();
         do {
             runFight(player, enemy);
-            }while(!AUnit.checkIfDead(player, enemy));
+        }while(!AUnit.checkIfDead(player, enemy));
 
         if (player.getHealth()>= 0) {
-            System.out.println("You have defeated " + printEnemyName() + " and have been rewarded " + (player.getExperience() + 105 * enemy.getLevel()) + " experience");
+            System.out.println("You have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + 105 * enemy.getLevel()) + " experience");
             player.setExperience((player.getExperience() + 10 * enemy.getLevel()));
         } else {
-            System.out.println(printEnemyName() + " have defeated " + printPlayerName() + " and the game is over");
+            System.out.println(enemy.printEnemyName(enemy) + " have defeated " + player.printPlayerName(player) + " and the game is over");
         }
-
 
     }
 
@@ -52,13 +49,7 @@ public class GameController  {
             player.setPlayerTurn(!player.isPlayerTurn());
         }
     }
-    public String printPlayerName(Player ){
-        return CYAN + player.getName() + RESET;
-    }
 
-    public String printEnemyName(){
-        return RED + player.getName() + RESET;
-    }
 
 }
 
