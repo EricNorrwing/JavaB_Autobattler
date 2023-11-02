@@ -1,29 +1,35 @@
 package com.EricNorrwing.Autobattler.controllers;
-
 import com.EricNorrwing.Autobattler.models.*;
 
-public class GameController {
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+
+
+public class GameController  {
 
     // TODO Everything
 
     private Player player;
     private Enemy enemy;
 
-    public GameController() {
+    public GameController() throws InterruptedException {
         // Constructor
+
         player = new Player("Krillinator");
         enemy = generateEnemy();
 
-        attack(player, enemy);
+        for (int i = 0; i < 30; i++){
+            do {
+                AUnit.attack(player, enemy);
+                Thread.sleep(500);
+                AUnit.attack(enemy,player);
+            }while(!AUnit.checkIfDead(enemy));
+            System.out.println(RED_BOLD + "You have defeated " + enemy.getName() + RESET);
+            player.setExperience(player.getExperience()+10*enemy.getLevel());
+
+        }
     }
 
-    //Trades blows between player and enemy
-    public void attack(Player player, Enemy enemy) {
-        int damageDealt = player.getDamage();
-        enemy.setHealth(enemy.getHealth()-damageDealt);
-        System.out.println("You did " + damageDealt + " damage to " + enemy.getName() + " and it has "+ enemy.getHealth() + " hp left!");
-        System.out.println(enemy.getHealth());
-    }
+
 
     //Randomizes affixes/Suffixes and generates a name for the enemy
     public Enemy generateEnemy() {
@@ -31,6 +37,7 @@ public class GameController {
         enemy.generateName();
         return enemy;
     }
+
 }
 
 

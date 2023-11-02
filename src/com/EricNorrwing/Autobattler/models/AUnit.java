@@ -1,15 +1,26 @@
 package com.EricNorrwing.Autobattler.models;
 
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+
 public abstract class AUnit {
     private String name;
     private int strength = 10;
     private int agility = 10;
+    private int skill = 100;
     private int health = 100;
     private int experience = 0;
     private int level = 1;
     private int baseDamage = 10;
 
+    //Empty constructor
     public AUnit(){
+    }
+    public int getSkill() {
+        return skill;
+    }
+
+    public void setSkill(int skill) {
+        this.skill = skill;
     }
 
     public String getName() {
@@ -63,10 +74,30 @@ public abstract class AUnit {
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
-        return ((int)(Math.random() * (maxDamage-minDamage)) + 1)*(strength/10);
+        return ((int)(Math.random() * (maxDamage-minDamage)) + minDamage)*(strength/10);
     }
 
-    public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
+    public int getBaseDamage() {
+        return baseDamage;
     }
+
+    // Methods here
+    public static boolean hitLands(AUnit attacker, AUnit target){
+        return (int) (Math.random() * 100) + 1 < (attacker.getSkill() - target.getAgility());
+    }
+    //Trades blows between player and enemy
+    public static void attack(AUnit attacker, AUnit target) {
+        if (AUnit.hitLands(attacker, target)) {
+            int damageDealt = attacker.getDamage();
+            target.setHealth(target.getHealth() - damageDealt);
+            System.out.println(attacker.getName() + " did " + damageDealt + " damage to " + target.getName() + " and it has " + target.getHealth() + " hp left!");
+        } else {
+            System.out.println(target.getName()+ BLUE + " dodged the attack from " + RESET + attacker.getName() + "!");
+        }
+    }
+
+    public static boolean checkIfDead(AUnit target){
+        return target.getHealth()<= 0;
+    }
+
 }
