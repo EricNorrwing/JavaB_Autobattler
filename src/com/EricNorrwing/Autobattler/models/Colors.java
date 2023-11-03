@@ -2,6 +2,8 @@ package com.EricNorrwing.Autobattler.models;
 
 public class Colors
 {
+
+
     // Reset
     public static final String RESET =
             "\033[0m"; // Text Reset
@@ -131,4 +133,10 @@ public class Colors
             "\033[0;106m"; // CYAN
     public static final String WHITE_BACKGROUND_BRIGHT =
             "\033[0;107m"; // WHITE
+
+
+    //Constants for player/Enemy colors
+    public static final String PLAYER_COLOR = BLUE;
+    public static final String ENEMY_COLOR = RED;
+    public static final String RESET_COLOR = RESET;
 }

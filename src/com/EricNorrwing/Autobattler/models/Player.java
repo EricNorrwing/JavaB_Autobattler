@@ -2,6 +2,8 @@ package com.EricNorrwing.Autobattler.models;
 
 
 public class Player extends AUnit{
+    public static final String PLAYER_COLOR = "BLUE";
+    public static final String RESET_COLOR = "RESET";
 
     //Constructor
     public Player(String name){

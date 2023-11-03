@@ -12,7 +12,7 @@ public class GameController  {
     private Enemy enemy;
 
     public void runGame() throws InterruptedException {
-        player = new Player("Krillinator");
+        player = new Player("Benny");
         enemy = generateEnemy();
         do {
             runFight(player, enemy);

@@ -7,6 +7,7 @@ public abstract class AUnit {
     private int strength = 10;
     private int agility = 10;
     private int skill = 100;
+    private int lethality = 5;
     private int health = 100;
     private int experience = 0;
     private int level = 1;
@@ -15,6 +16,15 @@ public abstract class AUnit {
     //Empty constructor
     public AUnit(){
     }
+
+    public int getLethality() {
+        return lethality;
+    }
+
+    public void setLethality(int lethality) {
+        this.lethality = lethality;
+    }
+
     public int getSkill() {
         return skill;
     }
@@ -62,7 +72,7 @@ public abstract class AUnit {
     public void setExperience(int experience) {
         if (this.experience > 100){
             level++;
-            System.out.println("You have leveled up! new level is: " + this.level);
+            System.out.println("You have leveled up! new level is: " + getLevel());
         }
         this.experience = experience;
     }
@@ -78,7 +88,13 @@ public abstract class AUnit {
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
-        return ((int)(Math.random() * (maxDamage-minDamage)) + minDamage)*(strength/10);
+        boolean crit = ((int)(Math.random() * (100)+getLethality()+1)) >= 100;
+        if (crit){
+            return ((int)(Math.random() * (maxDamage-minDamage)) + minDamage)*(strength/10)*2;
+        }else {
+            return ((int)(Math.random() * (maxDamage-minDamage)) + minDamage)*(strength/10);
+        }
+
     }
 
     public int getBaseDamage() {
@@ -91,12 +107,16 @@ public abstract class AUnit {
     }
     //Trades blows between player and enemy
     public static void attack(AUnit attacker, AUnit target) {
+        //Theese 2 rows were pulled from chatGPT, it called it "ternary operator", will be using this more hopefully
+        String attackerColor = (attacker instanceof Player) ? Colors.PLAYER_COLOR : Colors.ENEMY_COLOR;
+        String targetColor = (target instanceof Player) ? Colors.PLAYER_COLOR : Colors.ENEMY_COLOR;
+
         if (AUnit.hitLands(attacker, target)) {
             int damageDealt = attacker.getDamage();
             target.setHealth(target.getHealth() - damageDealt);
-            System.out.println(BLUE + attacker.getName() + RESET + " did " + RED + damageDealt + RESET + " damage to " + RED + target.getName() + RESET + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
+            System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " did " + RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
         } else {
-            System.out.println(RED + target.getName() + RESET + " " + BLUE + "DODGED" + RESET + " the attack from " + BLUE + attacker.getName() + RESET + "!");
+            System.out.println(targetColor + target.getName() + RESET_COLOR + " " + BLUE + "DODGED" + RESET + " the attack from " + attackerColor + attacker.getName() + RESET_COLOR + "!");
         }
     }
 
@@ -104,8 +124,7 @@ public abstract class AUnit {
         return attacker.getHealth() <= 0 || target.getHealth()<= 0;
     }
 
-    //Color prints
-
+    //Color prints for non variable methods
     public String printPlayerName(AUnit player){
         return CYAN + player.getName() + RESET;
     }
@@ -115,27 +134,3 @@ public abstract class AUnit {
     }
 }
 
-
-// TODO FIX THIS CHAT GPT THING AND TRULY UNDERSTAND IT
-/*
-public class CharacterColor {
-    public static final String PLAYER_COLOR = BLUE;
-    public static final String ENEMY_COLOR = RED;
-    public static final String RESET_COLOR = RESET;
-}
-++
-
-public static void attack(AUnit attacker, AUnit target) {
-    String attackerColor = (attacker instanceof Player) ? CharacterColor.PLAYER_COLOR : CharacterColor.ENEMY_COLOR;
-    String targetColor = (target instanceof Player) ? CharacterColor.PLAYER_COLOR : CharacterColor.ENEMY_COLOR;
-
-    if (AUnit.hitLands(attacker, target)) {
-        int damageDealt = attacker.getDamage();
-        target.setHealth(target.getHealth() - damageDealt);
-        System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " did " + RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
-    } else {
-        System.out.println(targetColor + target.getName() + RESET_COLOR + " " + BLUE + "DODGED" + RESET + " the attack from " + attackerColor + attacker.getName() + RESET_COLOR + "!");
-    }
-}
-
- */
