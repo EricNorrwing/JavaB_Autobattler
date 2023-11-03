@@ -137,6 +137,6 @@ public class Colors
 
     //Constants for player/Enemy colors
     public static final String PLAYER_COLOR = BLUE;
-    public static final String ENEMY_COLOR = RED;
+    public static final String ENEMY_COLOR = YELLOW;
     public static final String RESET_COLOR = RESET;
 }

@@ -46,12 +46,11 @@ public class GameController  {
             player.attack(player, enemy);
             //Slows down the output to make it more intense!
             Thread.sleep(1);
-            player.setPlayerTurn(!player.isPlayerTurn());
         } else {
             enemy.attack(enemy, player);
             Thread.sleep(1);
-            player.setPlayerTurn(!player.isPlayerTurn());
         }
+        player.setPlayerTurn(!player.isPlayerTurn());
     }
 
 
