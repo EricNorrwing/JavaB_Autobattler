@@ -4,7 +4,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 public abstract class AUnit {
     private String name;
-    private int strength = 10;
+    private double strength = 10;
     private int agility = 10;
     private int skill = 100;
     private int lethality = 5;
@@ -41,11 +41,11 @@ public abstract class AUnit {
         this.name = name;
     }
 
-    public int getStrength() {
+    public double getStrength() {
         return strength;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(double strength) {
         this.strength = strength;
     }
 
@@ -89,13 +89,20 @@ public abstract class AUnit {
         this.level = level;
     }
     public void addLevel(int level) {
-        this.level = this.level+level;
+        //Updates all values by 1.2 when you levelup
+        setStrength((int)(getStrength() * Math.pow(1.2, level)));
+        setAgility((int)(getAgility() * Math.pow(1.2, level)));
+        setHealth((int)(getHealth() * Math.pow(1.2, level)));
+        setLevel(getLevel()+level);
     }
 
+    //Damage dealt is always basedamage +-5, it can however be modified by equipment and multipliers. The +-5 is static.
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
-        return ((int)(Math.random() * (maxDamage-minDamage)) + minDamage)*(strength/10);
+        double damageModifier = (double) strength / 100.0;
+        double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
+        return (int) Math.round(damage);
     }
 
     public int getBaseDamage() {
@@ -103,6 +110,8 @@ public abstract class AUnit {
     }
 
     // Methods here
+
+
     public static boolean hitLands(AUnit attacker, AUnit target){
         return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() - target.getAgility());
     }

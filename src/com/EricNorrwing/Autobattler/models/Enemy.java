@@ -12,18 +12,7 @@ public class Enemy extends AUnit{
     public static final String RESET_COLOR = "RESET";
 
 
-    public Enemy(int type, int affix, int suffix) {
-        this.type = type;
-        this.affix = affix;
-        this.suffix = suffix;
-    }
-    public void generateName(){
-        String[] typeArray = {" Wraith", " Bandit", " Dragon"," Zombie", " Ghost", " Mimic"," Lich", " Wolf", " Witch"," Duelist"};
-        String[] affixArray = {"Greater", "Juggernaught", "Agile","Quick", "Strong", "Weak","Small", "Keen", "Massive","Coward"};
-        String[] suffixArray = {" the frail", " the Bright", " of massive loot"," of Brutality", " of Deception", " of Vengeance"," of Chaos", " of Laziness", " of Ineptitude"," the uneducated"};
-        System.out.println(affixArray[affix] + typeArray[type] + suffixArray[suffix]);
-        setName(affixArray[affix] + typeArray[type] + suffixArray[suffix]);
-    }
+
 
     public int getType() {
         return type;
@@ -47,5 +36,179 @@ public class Enemy extends AUnit{
 
     public void setSuffix(int suffix) {
         this.suffix = suffix;
+    }
+
+    //Methods
+    public void levelModifer(Enemy enemy){
+        double modifier = 1.2;
+        enemy.setStrength((int)Math.pow(modifier, enemy.getLevel()));
+        enemy.setAgility((int)Math.pow(modifier, enemy.getLevel()));
+        enemy.setHealth((int)Math.pow(modifier, enemy.getLevel()));
+    }
+    public Enemy(int type, int affix, int suffix) {
+        this.type = type;
+        this.affix = affix;
+        this.suffix = suffix;
+    }
+    public void generateName(){
+        String[] typeArray = {" Wraith", " Bandit", " Dragon"," Zombie", " Ghost", " Mimic"," Lich", " Wolf", " Witch"," Duelist"};
+        String[] affixArray = {"Greater", "Juggernaught", "Agile","Quick", "Strong", "Weak","Small", "Keen", "Massive","Coward"};
+        String[] suffixArray = {" the frail", " the Bright", " of massive loot"," of Brutality", " of Deception", " of Vengeance"," of Chaos", " of Laziness", " of Ineptitude"," the Fearless"};
+        setName(affixArray[affix] + typeArray[type] + suffixArray[suffix]);
+    }
+
+    public void applyAffixModifiers(){
+        switch (getAffix()) {
+            case 0 -> {
+                //Greater
+                setHealth((int) (getHealth() * 1.2));
+                setStrength((int) (getStrength() * 1.2));
+            }
+            case 1 ->
+                //Juggernaught
+                    setHealth((int) (getHealth() * 1.8));
+            case 2 ->
+                //Agile
+                    setAgility((getAgility() + 20));
+            case 3 -> {
+                //Quick
+                setAgility((getAgility() + 10));
+                setLethality((getLethality() + 10));
+            }
+            case 4 ->
+                //Strong
+                    setStrength((int) (getStrength() * 1.5));
+            case 5 ->
+                //Weak
+                    setStrength((int) (getStrength() * 0.5));
+            case 6 -> {
+                //Small
+                setHealth((int) (getHealth() * 0.5));
+                setAgility((getAgility() + 20));
+            }
+            case 7 ->
+                //Keen
+                    setLethality((getLethality() + 30));
+            case 8 -> {
+                //Massive
+                setHealth((int) (getHealth() * 1.5));
+                setStrength((int) (getStrength() * 1.5));
+            }
+            case 9 -> {
+            }
+            //Coward
+            //TODO Write code that prevents it from dealing damage to you when you flee
+            default -> {
+            }
+            //TODO Do sometehing
+        }
+    }
+    public void applyTypeModifiers(){
+        //Modifiers for type
+        switch (getType()) {
+            case 0 -> {
+                //Wraith
+                setAgility((getAgility() + 40));
+                setHealth((int) (getHealth() * 0.5));
+            }
+            case 1 ->
+                //Bandit
+                    setLethality((getLethality() + 20));
+            case 2 -> {
+                //Dragons are very powerful and should be avoided.
+                setStrength((int) (getStrength() * 2.5));
+                setHealth((int) (getHealth() * 2.5));
+                setLethality((getLethality() + 100));
+            }
+            case 3 -> {
+                //Zombies
+                setHealth((int) (getHealth() * 0.75));
+                setAgility((getAgility() - 100));
+                setExperience((int) (getExperience() * 0.25));
+            }
+            //TODO drops no loot
+            case 4 -> {
+                //Ghost
+                setAgility((getAgility() + 60));
+                setHealth((int) (getHealth() * 0.25));
+                setLethality((getLethality() + 25));
+            }
+            case 5 ->
+                //Mimic
+                //TODO Always drop loot
+                    setHealth((int) (getHealth() * 1.5));
+            case 6 -> {
+                //Lich
+                setHealth((int) (getHealth() * 0.5));
+                setLethality((getLethality() + 25));
+            }
+            case 7 ->
+                //Wolf
+                    setLethality((getLethality() + 30));
+            case 8 -> {
+            }
+            //Witch
+            //TODO Unsure
+            case 9 -> {
+                //Duelist
+                setLethality((getLethality() + 25));
+                setAgility((getAgility() + 25));
+            }
+            default -> {
+            }
+            //TODO Do sometehing
+        }
+    }
+    public void applySuffixModifiers(){
+        //Modifiers for suffixes
+        switch (getSuffix()) {
+            case 0 ->
+                //Frail
+                    setHealth((int) (getHealth() * 0.5));
+            case 1 ->
+                //The bright
+                    setAgility((getAgility() + 15));
+            case 2 -> {
+            }
+            //Massive loot
+            //TODO Upgrades possible loot to 2 affixes or something? drops 2 items?
+            case 3 -> {
+                //Brutality
+                setAgility((getAgility() + 10));
+                setStrength((getStrength() + 20));
+            }
+            case 4 ->
+                //of Deception
+                //TODO drops no loot unless mimic?
+                    setAgility((getAgility() + 20));
+            case 5 -> {
+            }
+            //of Vengeance
+            // TODO This foe strikes you once more if it dies first?
+            case 6 -> {
+                //of Chaos
+                setLethality((getLethality() + 30));
+                setAgility((getAgility() + 30));
+            }
+            case 7 ->
+                //of Laziness
+                    setAgility((getAgility() - 50));
+            case 8 -> {
+                //of ineptiude
+                setSkill((int) (getSkill() * 0.5));
+                setAgility((getAgility() - 10));
+                setAgility((getAgility() - 10));
+            }
+            case 9 -> {
+            }
+            //the uneducated
+            //TODO make it do more damage the lower hp it has
+            default -> {
+            }
+            //TODO Do sometehing
+        }
+
+
+
     }
 }

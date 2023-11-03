@@ -12,6 +12,7 @@ public class GameController  {
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
+        //Inserts player to determine the strength of opponents based on player strength
         enemy = generateEnemy(player);
         do {
             runFight(player, enemy);
@@ -32,10 +33,16 @@ public class GameController  {
 
     //Randomizes affixes/Suffixes and generates a name for the enemy
     public Enemy generateEnemy(Player player) {
-        Enemy enemy = new Enemy((int) (Math.random() * 10 ), (int) (Math.random() * 10), (int) (Math.random() * 10));
+        Enemy enemy = new Enemy(((int) (Math.random() * 10)),((int) (Math.random() * 10)), ((int) (Math.random() * 10)));
         enemy.generateName();
         enemy.setLevel(player.getLevel()+(int) (Math.random()*3) +1);
         enemy.setExperience(50);
+
+        //Buffs the enemies with 20% per level they randomly spawned on.
+        enemy.levelModifer(enemy);
+        enemy.applyAffixModifiers();
+        enemy.applyTypeModifiers();
+        enemy.applySuffixModifiers();
         return enemy;
     }
 
