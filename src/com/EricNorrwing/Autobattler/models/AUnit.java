@@ -100,7 +100,7 @@ public abstract class AUnit {
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
-        double damageModifier = (double) strength / 100.0;
+        double damageModifier = 1.0 + (double) strength / 100.0;
         double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
         return (int) Math.round(damage);
     }
