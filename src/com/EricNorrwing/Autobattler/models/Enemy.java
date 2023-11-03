@@ -7,6 +7,7 @@ public class Enemy extends AUnit{
     private int affix;
     private int suffix;
 
+
     public static final String ENEMY_COLOR = "RED";
     public static final String RESET_COLOR = "RESET";
 
