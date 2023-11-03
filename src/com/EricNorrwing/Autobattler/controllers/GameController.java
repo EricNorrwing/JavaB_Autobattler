@@ -40,9 +40,11 @@ public class GameController  {
 
         //Buffs the enemies with 20% per level they randomly spawned on.
         enemy.levelModifer(enemy);
-        enemy.applyAffixModifiers();
         enemy.applyTypeModifiers();
+        enemy.applyAffixModifiers();
         enemy.applySuffixModifiers();
+        //TODO REMOVE DEBUG STATEMENT
+        System.out.println(enemy.getName() + " " + enemy.getHealth() + " " + enemy.getStrength() + " " + enemy.getAgility());
         return enemy;
     }
 

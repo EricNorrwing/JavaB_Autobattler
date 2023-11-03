@@ -40,10 +40,11 @@ public class Enemy extends AUnit{
 
     //Methods
     public void levelModifer(Enemy enemy){
-        double modifier = 1.2;
-        enemy.setStrength((int)Math.pow(modifier, enemy.getLevel()));
-        enemy.setAgility((int)Math.pow(modifier, enemy.getLevel()));
-        enemy.setHealth((int)Math.pow(modifier, enemy.getLevel()));
+        double modifier = 1.2; // 20% increase per level
+        int levels = enemy.getLevel(); // Get the enemy's level
+        enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, levels)));
+        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, levels)));
+        enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, levels)));
     }
     public Enemy(int type, int affix, int suffix) {
         this.type = type;
@@ -175,7 +176,7 @@ public class Enemy extends AUnit{
             case 3 -> {
                 //Brutality
                 setAgility((getAgility() + 10));
-                setStrength((getStrength() + 20));
+                setStrength((int) (getStrength() + 20));
             }
             case 4 ->
                 //of Deception

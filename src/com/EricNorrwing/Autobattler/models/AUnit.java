@@ -4,7 +4,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 public abstract class AUnit {
     private String name;
-    private double strength = 10;
+    private int strength = 10;
     private int agility = 10;
     private int skill = 100;
     private int lethality = 5;
@@ -45,7 +45,7 @@ public abstract class AUnit {
         return strength;
     }
 
-    public void setStrength(double strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
     }
 
