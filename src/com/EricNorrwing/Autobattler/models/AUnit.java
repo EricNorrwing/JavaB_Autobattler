@@ -105,12 +105,10 @@ public abstract class AUnit {
         return (int) Math.round(damage);
     }
 
-    public int getBaseDamage() {
-        return baseDamage;
-    }
 
     // Methods here
 
+    public abstract void presentUnit();
 
     public static boolean hitLands(AUnit attacker, AUnit target){
         return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() - target.getAgility());

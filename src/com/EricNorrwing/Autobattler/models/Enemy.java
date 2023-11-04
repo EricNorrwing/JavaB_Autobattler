@@ -1,12 +1,13 @@
 package com.EricNorrwing.Autobattler.models;
 
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+
 public class Enemy extends AUnit{
 
     //TODO generate list of affixes and suffixes, and their respective modifiers
     private int type;
     private int affix;
     private int suffix;
-
 
     public static final String ENEMY_COLOR = "RED";
     public static final String RESET_COLOR = "RESET";
@@ -39,7 +40,7 @@ public class Enemy extends AUnit{
     }
 
     //Methods
-    public void levelModifer(Enemy enemy){
+    public void applyLevelModifer(Enemy enemy){
         double modifier = 1.2; // 20% increase per level
         int levels = enemy.getLevel(); // Get the enemy's level
         enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, levels)));
@@ -57,7 +58,6 @@ public class Enemy extends AUnit{
         String[] suffixArray = {" the frail", " the Bright", " of massive loot"," of Brutality", " of Deception", " of Vengeance"," of Chaos", " of Laziness", " of Ineptitude"," the Fearless"};
         setName(affixArray[affix] + typeArray[type] + suffixArray[suffix]);
     }
-
     public void applyAffixModifiers(){
         switch (getAffix()) {
             case 0 -> {
@@ -211,5 +211,16 @@ public class Enemy extends AUnit{
 
 
 
+    }
+
+    @Override
+    public void presentUnit() {
+        System.out.println(
+                YELLOW_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                        "\n"+  GREEN + getHealth() + RESET +  " health" +
+                        "\n" + YELLOW + getAgility() +   "%" + RESET + " chance to dodge" +
+                        "\n" + RED + getStrength() +   "%" + RESET + " increased damage" +
+                        "\n" + BLUE + getLethality() + "%" + RESET + " chance to critically strike"
+        );
     }
 }

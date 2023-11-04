@@ -1,6 +1,9 @@
 package com.EricNorrwing.Autobattler.models;
 
 
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+import static com.EricNorrwing.Autobattler.models.Colors.RESET;
+
 public class Player extends AUnit{
     public static final String PLAYER_COLOR = "BLUE";
     public static final String RESET_COLOR = "RESET";
@@ -24,7 +27,18 @@ public class Player extends AUnit{
         return getName();
     }
 
+    //TODO fix
+    @Override
+    public void presentUnit() {
+        System.out.println(
+                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                        "\n"+  GREEN + getHealth() + RESET +  " health" +
+                        "\n" + YELLOW + getAgility() +   "%" + RESET + " chance to dodge" +
+                        "\n" + RED + getStrength() +   "%" + RESET + " increased damage" +
+                        "\n" + BLUE + getLethality() + "%" + RESET + " chance to critically strike"
+        );
 
+    }
 
 
     //TODO Add origin classes with default modifiers

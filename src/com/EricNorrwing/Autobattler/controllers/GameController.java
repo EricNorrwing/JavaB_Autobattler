@@ -39,11 +39,13 @@ public class GameController  {
         enemy.setExperience(50);
 
         //Buffs the enemies with 20% per level they randomly spawned on.
-        enemy.levelModifer(enemy);
+        enemy.applyLevelModifer(enemy);
         enemy.applyTypeModifiers();
         enemy.applyAffixModifiers();
         enemy.applySuffixModifiers();
         //TODO REMOVE DEBUG STATEMENT
+        enemy.presentUnit();
+        player.presentUnit();
         System.out.println(enemy.getName() + " " + enemy.getHealth() + " " + enemy.getStrength() + " " + enemy.getAgility() + " " + enemy.getLevel());
         return enemy;
     }
