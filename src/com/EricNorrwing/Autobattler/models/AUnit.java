@@ -97,6 +97,7 @@ public abstract class AUnit {
     }
 
     //Damage dealt is always basedamage +-5, it can however be modified by equipment and multipliers. The +-5 is static.
+    //This is technically not a getter, since it does calculations?
     public int getDamage() {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
@@ -113,7 +114,7 @@ public abstract class AUnit {
     public static boolean hitLands(AUnit attacker, AUnit target){
         return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() - target.getAgility());
     }
-    //Trades blows between player and enemy
+    //Trades blows between Units
     public void attack(AUnit attacker, AUnit target) {
         //Theese 2 rows were pulled from chatGPT, it called it "ternary operator", will be using this more hopefully
         String attackerColor = (attacker instanceof Player) ? Colors.PLAYER_COLOR : Colors.ENEMY_COLOR;
@@ -135,6 +136,7 @@ public abstract class AUnit {
         }
     }
 
+    //Checks if anyone died to stop the sequence
     public static boolean checkIfDead(AUnit attacker, AUnit target){
         return attacker.getHealth() <= 0 || target.getHealth()<= 0;
     }
