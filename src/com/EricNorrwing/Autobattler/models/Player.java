@@ -27,7 +27,7 @@ public class Player extends AUnit{
         return getName();
     }
 
-    //TODO fix
+    //Just has different colors for introduction to seperate them.
     @Override
     public void presentUnit() {
         System.out.println(

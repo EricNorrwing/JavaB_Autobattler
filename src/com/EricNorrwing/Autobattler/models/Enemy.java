@@ -41,11 +41,10 @@ public class Enemy extends AUnit{
 
     //Methods
     public void applyLevelModifer(Enemy enemy){
-        double modifier = 1.2; // 20% increase per level
-        int levels = enemy.getLevel(); // Get the enemy's level
-        enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, levels)));
-        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, levels)));
-        enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, levels)));
+        double modifier = 1.2;
+        enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, enemy.getLevel())));
+        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, enemy.getLevel())));
+        enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, enemy.getLevel())));
     }
     public Enemy(int type, int affix, int suffix) {
         this.type = type;
@@ -70,10 +69,10 @@ public class Enemy extends AUnit{
                     setHealth((int) (getHealth() * 1.8));
             case 2 ->
                 //Agile
-                    setAgility((getAgility() + 20));
+                    setAgility((getAgility() + 10));
             case 3 -> {
                 //Quick
-                setAgility((getAgility() + 10));
+                setAgility((getAgility() + 5));
                 setLethality((getLethality() + 10));
             }
             case 4 ->
@@ -85,7 +84,7 @@ public class Enemy extends AUnit{
             case 6 -> {
                 //Small
                 setHealth((int) (getHealth() * 0.5));
-                setAgility((getAgility() + 20));
+                setAgility((getAgility() + 10));
             }
             case 7 ->
                 //Keen
@@ -109,7 +108,7 @@ public class Enemy extends AUnit{
         switch (getType()) {
             case 0 -> {
                 //Wraith
-                setAgility((getAgility() + 40));
+                setAgility((getAgility() + 30));
                 setHealth((int) (getHealth() * 0.5));
             }
             case 1 ->
@@ -130,7 +129,7 @@ public class Enemy extends AUnit{
             //TODO drops no loot
             case 4 -> {
                 //Ghost
-                setAgility((getAgility() + 60));
+                setAgility((getAgility() + 40));
                 setHealth((int) (getHealth() * 0.25));
                 setLethality((getLethality() + 25));
             }
@@ -153,7 +152,7 @@ public class Enemy extends AUnit{
             case 9 -> {
                 //Duelist
                 setLethality((getLethality() + 25));
-                setAgility((getAgility() + 25));
+                setAgility((getAgility() + 15));
             }
             default -> {
             }
@@ -168,20 +167,20 @@ public class Enemy extends AUnit{
                     setHealth((int) (getHealth() * 0.5));
             case 1 ->
                 //The bright
-                    setAgility((getAgility() + 15));
+                    setAgility((getAgility() + 5));
             case 2 -> {
             }
             //Massive loot
             //TODO Upgrades possible loot to 2 affixes or something? drops 2 items?
             case 3 -> {
                 //Brutality
-                setAgility((getAgility() + 10));
+                setAgility((getAgility() + 5));
                 setStrength((int) (getStrength() + 20));
             }
             case 4 ->
                 //of Deception
                 //TODO drops no loot unless mimic?
-                    setAgility((getAgility() + 20));
+                    setAgility((getAgility() + 10));
             case 5 -> {
             }
             //of Vengeance
@@ -189,7 +188,7 @@ public class Enemy extends AUnit{
             case 6 -> {
                 //of Chaos
                 setLethality((getLethality() + 30));
-                setAgility((getAgility() + 30));
+                setAgility((getAgility() + 15));
             }
             case 7 ->
                 //of Laziness
@@ -213,10 +212,11 @@ public class Enemy extends AUnit{
 
     }
 
+    //Just has different colors for introduction to seperate them.
     @Override
     public void presentUnit() {
         System.out.println(
-                YELLOW_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                YELLOW_UNDERLINED + getName() + " level " + getLevel() + " has the following statistics:" + RESET +
                         "\n"+  GREEN + getHealth() + RESET +  " health" +
                         "\n" + YELLOW + getAgility() +   "%" + RESET + " chance to dodge" +
                         "\n" + RED + getStrength() +   "%" + RESET + " increased damage" +

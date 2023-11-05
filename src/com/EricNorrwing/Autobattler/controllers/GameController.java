@@ -44,9 +44,10 @@ public class GameController  {
         enemy.applyAffixModifiers();
         enemy.applySuffixModifiers();
         //TODO REMOVE DEBUG STATEMENT
+        Weapon wep = new Weapon();
+        wep.generateName();
         enemy.presentUnit();
         player.presentUnit();
-        System.out.println(enemy.getName() + " " + enemy.getHealth() + " " + enemy.getStrength() + " " + enemy.getAgility() + " " + enemy.getLevel());
         return enemy;
     }
 

@@ -121,7 +121,6 @@ public abstract class AUnit {
 
         if (AUnit.hitLands(attacker, target)) {
             int damageDealt = attacker.getDamage();
-            //Critchance = Lethality stat
                 if (((int)(Math.random() * (100)+getLethality()+1)) >= 100){
                     damageDealt = (damageDealt*2);
                     System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt a " + RED_BOLD + "CRITICAL STRIKE " + "for " + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
@@ -131,7 +130,7 @@ public abstract class AUnit {
                     System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt " + RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
                 }
         } else {
-            System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " attacked, but the attack was " + BLUE_BOLD + "DODGED " + RESET + " by " + targetColor + target.getName() + RESET_COLOR + "!");
+            System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " attacked, but the attack was " + BLUE_BOLD + "DODGED " + RESET + "by " + targetColor + target.getName() + RESET_COLOR + "!");
 
         }
     }
