@@ -35,6 +35,7 @@ public class Player extends AUnit{
     public int getDamage(Weapon weapon,Armor armor){
         tempAgility = this.getAgility()+weapon.getAgilityModifier()+armor.getAgilityModifier();
 
+        //TODO REST OF WEAPONS AND ARMOR CHECKS "Instanceof player"
 
 
 
