@@ -1,64 +1,72 @@
 package com.EricNorrwing.Autobattler.models;
 
 public class Weapon implements IItem{
-    String name;
-    String affix;
-    String suffix;
-    String type = "Weapon";
+    String[] typeArray = {"Sword", "Staff", "Mace", "Greatsword", "Dagger"};
+    private String name;
+    private String affix;
+    private String suffix;
+    private String type;
+    int bonusDamage;
+
+    public int getBonusDamage() {
+        return bonusDamage;
+    }
+    public String getType(){
+        return typeArray[(int) (Math.random()*5)];
+    }
+
+    public void setBonusDamage(int bonusDamage) {
+        this.bonusDamage = bonusDamage;
+    }
+
     @Override
     public void generateName() {
-        String name = getAffix() + "Weapon" + getSuffix();
+        String name = getAffix() + getType() + getSuffix();
         System.out.println(name);
     }
 
     @Override
-    public void initializeStats() {
-        public void applyAffixModifiers(){
+    public void initializeStats(AUnit unit) {
             switch (getAffix()) {
-                case 0 -> {
-                    //Greater
-                    setHealth((int) (getHealth() * 1.2));
-                    setStrength((int) (getStrength() * 1.2));
-                }
-                case 1 ->
-                    //Juggernaught
-                        setHealth((int) (getHealth() * 1.8));
-                case 2 ->
-                    //Agile
-                        setAgility((getAgility() + 10));
-                case 3 -> {
-                    //Quick
-                    setAgility((getAgility() + 5));
-                    setLethality((getLethality() + 10));
-                }
-                case 4 ->
-                    //Strong
-                        setStrength((int) (getStrength() * 1.5));
-                case 5 ->
-                    //Weak
-                        setStrength((int) (getStrength() * 0.5));
-                case 6 -> {
-                    //Small
-                    setHealth((int) (getHealth() * 0.5));
-                    setAgility((getAgility() + 10));
-                }
-                case 7 ->
-                    //Keen
-                        setLethality((getLethality() + 30));
-                case 8 -> {
-                    //Massive
-                    setHealth((int) (getHealth() * 1.5));
-                    setStrength((int) (getStrength() * 1.5));
-                }
-                case 9 -> {
-                }
-                //Coward
-                //TODO Write code that prevents it from dealing damage to you when you flee
-                default -> {
-                }
-                //TODO Do sometehing
+                case "Greater" -> setBonusDamage(getBonusDamage()+5);
+                case "Lesser " -> setBonusDamage(getBonusDamage()+2);
+                case "Massive " -> setBonusDamage(getBonusDamage()+10);
+                case "Small " -> setBonusDamage(getBonusDamage()+1);
+                case "Magical " -> setBonusDamage(getBonusDamage()+15);
             }
-        }
 
+        switch (getSuffix()) {
+            case " of Strength" -> unit.setStrength(+5);
+            case " of Agility" -> unit.setAgility(+5);
+            case " of Skill" -> unit.setSkill(+5);
+            case " of Health" -> unit.setHealth(+50);
+            case " of Lethality" -> unit.setLethality(+5);
+        }
+        switch (getType()) {
+            case "Sword" -> setBonusDamage(getBonusDamage()+10);
+            case "Staff" -> {
+                unit.setHealth(unit.getHealth()-20);
+                unit.setLethality(unit.getLethality()+10);
+            }
+            case "Mace" -> {
+                unit.setAgility(unit.getAgility()-10);
+                setBonusDamage(getBonusDamage()+10);
+            }
+            case "Greatsword" -> {
+                unit.setHealth(unit.getHealth()+25);
+                setBonusDamage(getBonusDamage()+10);
+                unit.setAgility(unit.getAgility()-10);
+            }
+            case "Dagger" -> unit.setLethality(unit.getLethality()+15);
+        }
     }
+
+    public void printWeapon(Weapon weapon){
+        System.out.println("This weapon has the following bonuses: " + "\n"
+
+
+
+        );
+    }
+
 }
