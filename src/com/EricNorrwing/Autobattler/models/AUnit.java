@@ -13,8 +13,13 @@ public abstract class AUnit {
     private int level = 1;
     private int baseDamage = 10;
 
+
+
     //Empty constructor
     public AUnit(){
+    }
+    public int getBaseDamage() {
+        return baseDamage;
     }
 
     public int getLethality() {
@@ -41,7 +46,7 @@ public abstract class AUnit {
         this.name = name;
     }
 
-    public double getStrength() {
+    public int getStrength() {
         return strength;
     }
 
@@ -98,7 +103,7 @@ public abstract class AUnit {
 
     //Damage dealt is always basedamage +-5, it can however be modified by equipment and multipliers. The +-5 is static.
     //This is technically not a getter, since it does calculations?
-    public int getDamage() {
+    public int getDamage(Weapon weapon, Armor armor) {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
         double damageModifier = 1.0 + (double) strength / 100.0;
@@ -115,20 +120,26 @@ public abstract class AUnit {
         return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() - target.getAgility());
     }
     //Trades blows between Units
-    public void attack(AUnit attacker, AUnit target) {
+    public void attack(AUnit attacker, AUnit target, Weapon weapon, Armor armor) {
         //Theese 2 rows were pulled from chatGPT, it called it "ternary operator", will be using this more hopefully
         String attackerColor = (attacker instanceof Player) ? Colors.PLAYER_COLOR : Colors.ENEMY_COLOR;
         String targetColor = (target instanceof Player) ? Colors.PLAYER_COLOR : Colors.ENEMY_COLOR;
 
         if (AUnit.hitLands(attacker, target)) {
-            int damageDealt = attacker.getDamage();
+            int damageDealt = attacker.getDamage(weapon, armor);
+
                 if (((int)(Math.random() * (100)+getLethality()+1)) >= 100){
                     damageDealt = (damageDealt*2);
-                    System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt a " + RED_BOLD + "CRITICAL STRIKE " + "for " + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
+                    System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt a " +
+                            RED_BOLD + "CRITICAL STRIKE " + "for " + damageDealt + RESET + " damage to " +
+                            targetColor + target.getName() + RESET_COLOR + " and it has " +
+                            GREEN + target.getHealth() + RESET + " hp left!");
                     target.setHealth(target.getHealth() - damageDealt);
                 } else{
                     target.setHealth(target.getHealth() - damageDealt);
-                    System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt " + RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR + " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
+                    System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt " +
+                            RED + damageDealt + RESET + " damage to " + targetColor + target.getName() + RESET_COLOR +
+                            " and it has " + GREEN + target.getHealth() + RESET + " hp left!");
                 }
         } else {
             System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " attacked, but the attack was " + BLUE_BOLD + "DODGED " + RESET + "by " + targetColor + target.getName() + RESET_COLOR + "!");

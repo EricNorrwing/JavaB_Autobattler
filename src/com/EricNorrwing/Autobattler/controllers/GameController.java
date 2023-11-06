@@ -9,9 +9,14 @@ public class GameController  {
 
     private Player player;
     private Enemy enemy;
+    private Weapon weapon = new Weapon();
+    private Armor armor = new Armor();
+    // TODO Armor armor = new Armor();
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
+        weapon.generateWeapon(player);
+        armor.generateArmor(player);
         //Inserts player to determine the strength of opponents based on player strength
         enemy = generateEnemy(player);
         do {
@@ -44,8 +49,6 @@ public class GameController  {
         enemy.applyAffixModifiers();
         enemy.applySuffixModifiers();
         //TODO REMOVE DEBUG STATEMENT
-        Weapon wep = new Weapon();
-        wep.generateName();
         enemy.presentUnit();
         player.presentUnit();
         return enemy;
@@ -55,15 +58,16 @@ public class GameController  {
     // TODO Change delays
     public void runFight(Player player, Enemy enemy) throws InterruptedException {
         if (player.isPlayerTurn()) {
-            player.attack(player, enemy);
+            player.attack(player, enemy, weapon, armor);
             //Slows down the output to make it more intense!
             Thread.sleep(1);
         } else {
-            enemy.attack(enemy, player);
+            enemy.attack(enemy, player, weapon,armor);
             Thread.sleep(1);
         }
         player.setPlayerTurn(!player.isPlayerTurn());
     }
+
 
 
 }

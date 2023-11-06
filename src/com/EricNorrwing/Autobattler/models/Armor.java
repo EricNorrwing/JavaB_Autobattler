@@ -1,28 +1,25 @@
 package com.EricNorrwing.Autobattler.models;
 
-public class Weapon implements IItem{
-    private String[] typeArray = {"Sword", "Staff", "Mace", "Greatsword", "Dagger"};
+public class Armor implements IItem{
+    private String[] typeArray = {"Leather", "Chainmail", "Platemail", "Robe", "Enchanted platearmor"};
     private String name;
     private String affix;
     private String suffix;
     private String type;
-    private int bonusDamage;
+    private int damageReduction;
     private int agilityModifier;
     private int strengthModifier;
     private int healthModifier;
     private int skillModifier;
     private int lethalityModifier;
 
-    public int getBonusDamage() {
-        return bonusDamage;
+    public int getDamageReduction() {
+        return damageReduction;
     }
     public String getType(){
         return typeArray[(int) (Math.random()*5)];
     }
 
-    public void setBonusDamage(int bonusDamage) {
-        this.bonusDamage = bonusDamage;
-    }
 
     public String getName() {
         return name;
@@ -59,13 +56,13 @@ public class Weapon implements IItem{
 
     @Override
     public void initializeStats() {
-            switch (this.affix) {
-                case "Greater " -> setBonusDamage(getBonusDamage()+5);
-                case "Lesser " -> setBonusDamage(getBonusDamage()+2);
-                case "Massive " -> setBonusDamage(getBonusDamage()+10);
-                case "Small " -> setBonusDamage(getBonusDamage()+1);
-                case "Magical " -> setBonusDamage(getBonusDamage()+15);
-            }
+        switch (this.affix) {
+            case "Greater " -> damageReduction = damageReduction+5;
+            case "Lesser " -> damageReduction = damageReduction+2;
+            case "Massive " -> damageReduction = damageReduction+7;
+            case "Small " -> damageReduction = damageReduction+1;
+            case "Magical " -> damageReduction = damageReduction+10;
+        }
 
         switch (this.suffix) {
             case " of Strength" -> strengthModifier = 5;
@@ -75,25 +72,26 @@ public class Weapon implements IItem{
             case " of Lethality" -> lethalityModifier = 5;
         }
         switch (this.type) {
-            case "Sword" -> setBonusDamage(getBonusDamage()+10);
-            case "Staff" -> {
-                healthModifier = healthModifier-20;
-                lethalityModifier = lethalityModifier+10;
+            case "Leather"-> agilityModifier = agilityModifier + 5;
+            case "Chainmail" -> {
+                healthModifier = healthModifier+20;
+                damageReduction = damageReduction+5;
+                agilityModifier = agilityModifier - 5;
             }
-            case "Mace" -> {
-                agilityModifier = agilityModifier-10;
-                setBonusDamage(getBonusDamage()+10);
+            case "Platemail" -> {
+                damageReduction = damageReduction+10;
+                agilityModifier = agilityModifier - 10;
             }
-            case "Greatsword" -> {
-                healthModifier = healthModifier+25;
-                setBonusDamage(getBonusDamage()+10);
-                agilityModifier=agilityModifier-10;
+            case "Robe" -> {
+                agilityModifier=agilityModifier+10;
+                lethalityModifier= lethalityModifier+15;
             }
-            case "Dagger" -> lethalityModifier = lethalityModifier+15;
+            case "Enchanted platearmor" -> {
+                damageReduction = damageReduction+10;
+            }
         }
     }
-    public void generateWeapon(Player player){
-
+    public void generateArmor(Player player){
         generateName();
         initializeStats();
         System.out.println(getName());

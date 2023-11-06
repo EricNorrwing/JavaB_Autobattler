@@ -98,9 +98,6 @@ public class Enemy extends AUnit{
             }
             //Coward
             //TODO Write code that prevents it from dealing damage to you when you flee
-            default -> {
-            }
-            //TODO Do sometehing
         }
     }
     public void applyTypeModifiers(){
@@ -154,9 +151,7 @@ public class Enemy extends AUnit{
                 setLethality((getLethality() + 25));
                 setAgility((getAgility() + 15));
             }
-            default -> {
-            }
-            //TODO Do sometehing
+
         }
     }
     public void applySuffixModifiers(){
@@ -200,16 +195,10 @@ public class Enemy extends AUnit{
                 setAgility((getAgility() - 10));
             }
             case 9 -> {
+                //the uneducated
             }
-            //the uneducated
             //TODO make it do more damage the lower hp it has
-            default -> {
-            }
-            //TODO Do sometehing
         }
-
-
-
     }
 
     //Just has different colors for introduction to seperate them.

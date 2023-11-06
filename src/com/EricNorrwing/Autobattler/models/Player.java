@@ -5,14 +5,19 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 import static com.EricNorrwing.Autobattler.models.Colors.RESET;
 
 public class Player extends AUnit{
-    public static final String PLAYER_COLOR = "BLUE";
-    public static final String RESET_COLOR = "RESET";
+    private int tempStrength;
+    private int tempAgility;
+    private int tempHealth;
+    private int tempSkill;
+    private int tempLethality;
+    private boolean playerTurn = true;
+    Weapon weapon;
 
     //Constructor
     public Player(String name){
         setName(name);
     }
-    boolean playerTurn = true;
+
 
     public boolean isPlayerTurn() {
         return playerTurn;
@@ -25,6 +30,19 @@ public class Player extends AUnit{
     @Override
     public String toString() {
         return getName();
+    }
+    @Override
+    public int getDamage(Weapon weapon,Armor armor){
+        tempAgility = this.getAgility()+weapon.getAgilityModifier()+armor.getAgilityModifier();
+
+
+
+
+        int minDamage = this.getBaseDamage()-5;
+        int maxDamage = this.getBaseDamage()+5;
+        double damageModifier = 1.0 + (double) this.getStrength() / 100.0;
+        double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
+        return (int) Math.round(damage);
     }
 
     //Just has different colors for introduction to seperate them.
