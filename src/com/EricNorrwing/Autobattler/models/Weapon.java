@@ -1,17 +1,21 @@
 package com.EricNorrwing.Autobattler.models;
 
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+import static com.EricNorrwing.Autobattler.models.Colors.RESET;
+
 public class Weapon implements IItem{
+    //6th item in lists for generating default items, is not in randomizer
     private String[] typeArray = {"Sword", "Staff", "Mace", "Greatsword", "Dagger"};
     private String name;
     private String affix;
     private String suffix;
     private String type;
-    private int bonusDamage;
-    private int agilityModifier;
-    private int strengthModifier;
-    private int healthModifier;
-    private int skillModifier;
-    private int lethalityModifier;
+    private int bonusDamage= 0;
+    private int agilityModifier= 0;
+    private int strengthModifier= 0;
+    private int healthModifier= 0;
+    private int skillModifier= 0;
+    private int lethalityModifier= 0;
 
     public int getBonusDamage() {
         return bonusDamage;
@@ -39,22 +43,6 @@ public class Weapon implements IItem{
 
     public int getAgilityModifier() {
         return agilityModifier;
-    }
-
-    public int getStrengthModifier() {
-        return strengthModifier;
-    }
-
-    public int getHealthModifier() {
-        return healthModifier;
-    }
-
-    public int getSkillModifier() {
-        return skillModifier;
-    }
-
-    public int getLethalityModifier() {
-        return lethalityModifier;
     }
 
     @Override
@@ -92,20 +80,46 @@ public class Weapon implements IItem{
             case "Dagger" -> lethalityModifier = lethalityModifier+15;
         }
     }
-    public void generateWeapon(Player player){
+
+    public int getStrengthModifier() {
+        return strengthModifier;
+    }
+
+    public int getHealthModifier() {
+        return healthModifier;
+    }
+
+    public int getSkillModifier() {
+        return skillModifier;
+    }
+
+    public int getLethalityModifier() {
+        return lethalityModifier;
+    }
+
+    public void generateWeapon(){
 
         generateName();
         initializeStats();
         System.out.println(getName());
     }
+    public void generateStarterWeapon(){
+        this.name = "Inverted Spoon that needs cleaning";
+        System.out.println(getName());
 
-    //TODO FIX PRINTER
-    public void printWeapon(Weapon weapon){
-        System.out.println("This weapon has the following bonuses: " + "\n"
-
-
-
+    }
+    @Override
+    public void printItem(IItem item) {
+        System.out.println("This Armor has the following bonuses: " + "\n" +
+                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                "\n"+  GREEN + getHealthModifier() + RESET +  " health" +
+                "\n" + YELLOW + getAgilityModifier() +   "%" + RESET + " chance to dodge" +
+                "\n" + RED + getStrengthModifier() +   "%" + RESET + " increased damage" +
+                "\n" + BLUE + getStrengthModifier() + "%" + RESET + " chance to critically strike" +
+                "\n" + BLUE + getSkillModifier() + "%" + RESET + " increased chance to hit"
         );
     }
+
+
 
 }

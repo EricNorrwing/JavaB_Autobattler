@@ -1,17 +1,20 @@
 package com.EricNorrwing.Autobattler.models;
 
+import static com.EricNorrwing.Autobattler.models.Colors.*;
+
 public class Armor implements IItem{
-    private String[] typeArray = {"Leather", "Chainmail", "Platemail", "Robe", "Enchanted platearmor"};
+    //6th item in lists for generating default items, is not in randomizer
+    private String[] typeArray = {"Leather", "Chainmail", "Platemail", "Robe", "Enchanted platearmor", "t-shirt"};
     private String name;
     private String affix;
     private String suffix;
     private String type;
-    private int damageReduction;
-    private int agilityModifier;
-    private int strengthModifier;
-    private int healthModifier;
-    private int skillModifier;
-    private int lethalityModifier;
+    private int damageReduction = 0;
+    private int agilityModifier = 0;
+    private int strengthModifier= 0;
+    private int healthModifier= 0;
+    private int skillModifier= 0;
+    private int lethalityModifier= 0;
 
     public int getDamageReduction() {
         return damageReduction;
@@ -72,7 +75,7 @@ public class Armor implements IItem{
             case " of Lethality" -> lethalityModifier = 5;
         }
         switch (this.type) {
-            case "Leather"-> agilityModifier = agilityModifier + 5;
+            case "Leather armor"-> agilityModifier = agilityModifier + 5;
             case "Chainmail" -> {
                 healthModifier = healthModifier+20;
                 damageReduction = damageReduction+5;
@@ -86,24 +89,34 @@ public class Armor implements IItem{
                 agilityModifier=agilityModifier+10;
                 lethalityModifier= lethalityModifier+15;
             }
-            case "Enchanted platearmor" -> {
+            case "Enchanted Platearmor" -> {
                 damageReduction = damageReduction+10;
             }
         }
     }
-    public void generateArmor(Player player){
+
+    @Override
+    public void printItem(IItem item) {
+        System.out.println("This Armor has the following bonuses: " + "\n" +
+                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                "\n"+  GREEN + getHealthModifier() + RESET +  " health" +
+                "\n" + YELLOW + getAgilityModifier() +   "%" + RESET + " chance to dodge" +
+                "\n" + RED + getStrengthModifier() +   "%" + RESET + " increased damage" +
+                "\n" + BLUE + getStrengthModifier() + "%" + RESET + " chance to critically strike" +
+                "\n" + BLUE + getSkillModifier() + "%" + RESET + " increased chance to hit"
+
+
+        );
+    }
+
+    public void generateArmor(){
         generateName();
         initializeStats();
         System.out.println(getName());
     }
-
-    //TODO FIX PRINTER
-    public void printWeapon(Weapon weapon){
-        System.out.println("This weapon has the following bonuses: " + "\n"
-
-
-
-        );
+    public void generateStartingArmor(){
+        this.name = "Old t-shirt questionable origin";
+        System.out.println(getName());
     }
 
 }

@@ -15,8 +15,8 @@ public class GameController  {
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
-        weapon.generateWeapon(player);
-        armor.generateArmor(player);
+        weapon.generateStarterWeapon();
+        armor.generateStartingArmor();
         //Inserts player to determine the strength of opponents based on player strength
         enemy = generateEnemy(player);
         do {
