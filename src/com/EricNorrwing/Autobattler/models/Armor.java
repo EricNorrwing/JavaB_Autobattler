@@ -95,10 +95,34 @@ public class Armor implements IItem{
         }
     }
 
+    public void setDamageReduction(int damageReduction) {
+        this.damageReduction = damageReduction;
+    }
+
+    public void setAgilityModifier(int agilityModifier) {
+        this.agilityModifier = agilityModifier;
+    }
+
+    public void setStrengthModifier(int strengthModifier) {
+        this.strengthModifier = strengthModifier;
+    }
+
+    public void setHealthModifier(int healthModifier) {
+        this.healthModifier = healthModifier;
+    }
+
+    public void setSkillModifier(int skillModifier) {
+        this.skillModifier = skillModifier;
+    }
+
+    public void setLethalityModifier(int lethalityModifier) {
+        this.lethalityModifier = lethalityModifier;
+    }
+
     @Override
     public void printItem(IItem item) {
-        System.out.println("This Armor has the following bonuses: " + "\n" +
-                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+        System.out.println(PURPLE_BOLD + getName() + RESET + " has the following bonuses:"  +
+                "\n"+  GREEN + getDamageReduction() + RESET +  " damage reduction" +
                 "\n"+  GREEN + getHealthModifier() + RESET +  " health" +
                 "\n" + YELLOW + getAgilityModifier() +   "%" + RESET + " chance to dodge" +
                 "\n" + RED + getStrengthModifier() +   "%" + RESET + " increased damage" +
@@ -109,7 +133,18 @@ public class Armor implements IItem{
         );
     }
 
+    @Override
+    public void resetStats() {
+        setDamageReduction(0);
+        setAgilityModifier(0);
+        setHealthModifier(0);
+        setSkillModifier(0);
+        setStrengthModifier(0);
+        setLethalityModifier(0);
+    }
+
     public void generateArmor(){
+        resetStats();
         generateName();
         initializeStats();
         System.out.println(getName());
@@ -118,5 +153,10 @@ public class Armor implements IItem{
         this.name = "Old t-shirt questionable origin";
         System.out.println(getName());
     }
+    public void generateEnemyStarterArmor(){
+        this.name = "Thin hide of snowflakes";
+        System.out.println(getName());
+    }
+
 
 }

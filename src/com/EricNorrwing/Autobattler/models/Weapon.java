@@ -14,6 +14,27 @@ public class Weapon implements IItem{
     private int agilityModifier= 0;
     private int strengthModifier= 0;
     private int healthModifier= 0;
+
+    public void setAgilityModifier(int agilityModifier) {
+        this.agilityModifier = agilityModifier;
+    }
+
+    public void setStrengthModifier(int strengthModifier) {
+        this.strengthModifier = strengthModifier;
+    }
+
+    public void setHealthModifier(int healthModifier) {
+        this.healthModifier = healthModifier;
+    }
+
+    public void setSkillModifier(int skillModifier) {
+        this.skillModifier = skillModifier;
+    }
+
+    public void setLethalityModifier(int lethalityModifier) {
+        this.lethalityModifier = lethalityModifier;
+    }
+
     private int skillModifier= 0;
     private int lethalityModifier= 0;
 
@@ -56,11 +77,11 @@ public class Weapon implements IItem{
             }
 
         switch (this.suffix) {
-            case " of Strength" -> strengthModifier = 5;
-            case " of Agility" -> agilityModifier = 5;
-            case " of Skill" -> skillModifier = 5;
-            case " of Health" -> healthModifier = 50;
-            case " of Lethality" -> lethalityModifier = 5;
+            case " of Strength" -> strengthModifier = strengthModifier + 5;
+            case " of Agility" -> agilityModifier = agilityModifier + 5;
+            case " of Skill" -> skillModifier = skillModifier + 5;
+            case " of Health" -> healthModifier = healthModifier + 50;
+            case " of Lethality" -> lethalityModifier = lethalityModifier + 5;
         }
         switch (this.type) {
             case "Sword" -> setBonusDamage(getBonusDamage()+10);
@@ -98,7 +119,7 @@ public class Weapon implements IItem{
     }
 
     public void generateWeapon(){
-
+        resetStats();
         generateName();
         initializeStats();
         System.out.println(getName());
@@ -106,20 +127,32 @@ public class Weapon implements IItem{
     public void generateStarterWeapon(){
         this.name = "Inverted Spoon that needs cleaning";
         System.out.println(getName());
-
+    }
+    public void generateEnemyStarterWeapon(){
+        this.name = "Unsharp claws of feebleness";
+        System.out.println(getName());
     }
     @Override
     public void printItem(IItem item) {
-        System.out.println("This Armor has the following bonuses: " + "\n" +
-                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+        System.out.println(PURPLE_BOLD + getName() + RESET + " has the following bonuses:"  +
+                "\n"+  GREEN + getBonusDamage() + RESET +  " additional bonus damage" +
                 "\n"+  GREEN + getHealthModifier() + RESET +  " health" +
-                "\n" + YELLOW + getAgilityModifier() +   "%" + RESET + " chance to dodge" +
+                "\n" + YELLOW + getAgilityModifier() +   "%" + RESET + " increased chance to dodge" +
                 "\n" + RED + getStrengthModifier() +   "%" + RESET + " increased damage" +
                 "\n" + BLUE + getStrengthModifier() + "%" + RESET + " chance to critically strike" +
                 "\n" + BLUE + getSkillModifier() + "%" + RESET + " increased chance to hit"
         );
     }
 
+    @Override
+    public void resetStats() {
+        setBonusDamage(0);
+        setAgilityModifier(0);
+        setHealthModifier(0);
+        setSkillModifier(0);
+        setStrengthModifier(0);
+        setLethalityModifier(0);
+    }
 
 
 }

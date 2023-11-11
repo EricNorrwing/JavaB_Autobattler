@@ -9,10 +9,10 @@ public class Enemy extends AUnit{
     private int affix;
     private int suffix;
 
-    public static final String ENEMY_COLOR = "RED";
-    public static final String RESET_COLOR = "RESET";
+    private Weapon weapon = new Weapon();
 
 
+    private Armor armor = new Armor();
 
 
     public int getType() {
@@ -38,6 +38,12 @@ public class Enemy extends AUnit{
     public void setSuffix(int suffix) {
         this.suffix = suffix;
     }
+    public Weapon getWeapon() {
+        return weapon;
+    }
+    public Armor getArmor() {
+        return armor;
+    }
 
     //Methods
     public void applyLevelModifer(Enemy enemy){
@@ -56,6 +62,9 @@ public class Enemy extends AUnit{
         String[] affixArray = {"Greater", "Juggernaught", "Agile","Quick", "Strong", "Weak","Small", "Keen", "Massive","Coward"};
         String[] suffixArray = {" the frail", " the Bright", " of massive loot"," of Brutality", " of Deception", " of Vengeance"," of Chaos", " of Laziness", " of Ineptitude"," the Fearless"};
         setName(affixArray[affix] + typeArray[type] + suffixArray[suffix]);
+        // TODO This just needs to intialize a weapon to put into the attack function, it will be final after generation.
+        weapon.generateEnemyStarterWeapon();
+        armor.generateEnemyStarterArmor();
     }
     public void applyAffixModifiers(){
         switch (getAffix()) {

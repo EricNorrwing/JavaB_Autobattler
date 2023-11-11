@@ -107,7 +107,9 @@ public abstract class AUnit {
         int minDamage = baseDamage-5;
         int maxDamage = baseDamage+5;
         double damageModifier = 1.0 + (double) strength / 100.0;
-        double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
+        double damage = ((Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier) + weapon.getBonusDamage() - armor.getDamageReduction();
+        //ensures you dont heal the enemies if you dealt negative damage
+        damage = Math.max(0,damage);
         return (int) Math.round(damage);
     }
 
@@ -128,13 +130,14 @@ public abstract class AUnit {
         if (AUnit.hitLands(attacker, target)) {
             int damageDealt = attacker.getDamage(weapon, armor);
 
-                if (((int)(Math.random() * (100)+getLethality()+1)) >= 100){
+                if (((int)(Math.random() * (100)+attacker.getLethality()+1)) >= 100){
                     damageDealt = (damageDealt*2);
+                    target.setHealth(target.getHealth() - damageDealt);
                     System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt a " +
                             RED_BOLD + "CRITICAL STRIKE " + "for " + damageDealt + RESET + " damage to " +
                             targetColor + target.getName() + RESET_COLOR + " and it has " +
                             GREEN + target.getHealth() + RESET + " hp left!");
-                    target.setHealth(target.getHealth() - damageDealt);
+
                 } else{
                     target.setHealth(target.getHealth() - damageDealt);
                     System.out.println(attackerColor + attacker.getName() + RESET_COLOR + " dealt " +

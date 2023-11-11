@@ -9,22 +9,19 @@ public class GameController  {
 
     private Player player;
     private Enemy enemy;
-    private Weapon weapon = new Weapon();
-    private Armor armor = new Armor();
-    // TODO Armor armor = new Armor();
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
-        weapon.generateStarterWeapon();
-        armor.generateStartingArmor();
+
         //Inserts player to determine the strength of opponents based on player strength
         enemy = generateEnemy(player);
+        //Fight until one player dies.
         do {
             runFight(player, enemy);
         }while(!AUnit.checkIfDead(player, enemy));
 
         //Previous loop breaks if anyone drops below 0 health, now it just runs the next part if the player is alive.
-        //May rewrite if i have spare time
+        //May rewrite if I have spare time
         if (player.getHealth()>= 0) {
             System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + enemy.getExperience() * enemy.getLevel()) + " experience");
             player.addExperience(enemy.getExperience());
@@ -58,11 +55,11 @@ public class GameController  {
     // TODO Change delays
     public void runFight(Player player, Enemy enemy) throws InterruptedException {
         if (player.isPlayerTurn()) {
-            player.attack(player, enemy, weapon, armor);
+            player.attack(player, enemy,player.getWeapon(), player.getArmor());
             //Slows down the output to make it more intense!
             Thread.sleep(1);
         } else {
-            enemy.attack(enemy, player, weapon,armor);
+            enemy.attack(enemy, player, enemy.getWeapon(), enemy.getArmor());
             Thread.sleep(1);
         }
         player.setPlayerTurn(!player.isPlayerTurn());

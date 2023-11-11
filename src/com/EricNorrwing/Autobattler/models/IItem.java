@@ -15,5 +15,6 @@ public interface IItem {
     }
     void initializeStats();
     void printItem(IItem item);
+    void resetStats();
 
 }
