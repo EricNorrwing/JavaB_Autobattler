@@ -1,12 +1,11 @@
 package com.EricNorrwing.Autobattler.models;
 
 public interface IItem {
-    //6th item in lists for generating default items, is not in randomizer
     String[] affixArray = {"Greater ", "Lesser ", "Massive ", "Small ", "Magical "};
     String[] suffixArray = {" of Strength", " of Agility", " of Skill", " of Health", " of Lethality"};
 
     //Interface methods for things
-    void generateName();
+
     default String getAffix(){
         return affixArray[(int) (Math.random()*5)];
     }
@@ -16,5 +15,6 @@ public interface IItem {
     void initializeStats();
     void printItem(IItem item);
     void resetStats();
+    void generateName();
 
 }

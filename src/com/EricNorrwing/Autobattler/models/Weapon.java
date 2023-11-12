@@ -5,7 +5,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.RESET;
 
 public class Weapon implements IItem{
     //6th item in lists for generating default items, is not in randomizer
-    private String[] typeArray = {"Sword", "Staff", "Mace", "Greatsword", "Dagger"};
+    private final String[] typeArray = {"Sword", "Staff", "Mace", "Greatsword", "Dagger"};
     private String name;
     private String affix;
     private String suffix;
@@ -14,6 +14,8 @@ public class Weapon implements IItem{
     private int agilityModifier= 0;
     private int strengthModifier= 0;
     private int healthModifier= 0;
+    private int skillModifier= 0;
+    private int lethalityModifier= 0;
 
     public void setAgilityModifier(int agilityModifier) {
         this.agilityModifier = agilityModifier;
@@ -34,9 +36,6 @@ public class Weapon implements IItem{
     public void setLethalityModifier(int lethalityModifier) {
         this.lethalityModifier = lethalityModifier;
     }
-
-    private int skillModifier= 0;
-    private int lethalityModifier= 0;
 
     public int getBonusDamage() {
         return bonusDamage;
@@ -118,11 +117,11 @@ public class Weapon implements IItem{
         return lethalityModifier;
     }
 
+
     public void generateWeapon(){
         resetStats();
         generateName();
         initializeStats();
-        System.out.println(getName());
     }
     public void generateStarterWeapon(){
         this.name = "Inverted Spoon that needs cleaning";

@@ -209,6 +209,18 @@ public class Enemy extends AUnit{
             //TODO make it do more damage the lower hp it has
         }
     }
+    @Override
+    public int getDamage(Weapon weapon,Armor armor){
+        System.out.println(armor.getDamageReduction());
+        int minDamage = this.getBaseDamage()-5;
+        int maxDamage = this.getBaseDamage()+5;
+        double damageModifier = 1.0 + getStrength() / 100.0;
+        double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
+        damage = damage + weapon.getBonusDamage();
+        //ensures you dont heal the enemies if you dealt negative damage
+        damage = Math.max(0,damage);
+        return (int) Math.round(damage)-armor.getDamageReduction();
+    }
 
     //Just has different colors for introduction to seperate them.
     @Override

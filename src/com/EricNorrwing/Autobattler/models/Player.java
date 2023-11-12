@@ -5,11 +5,6 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 import static com.EricNorrwing.Autobattler.models.Colors.RESET;
 
 public class Player extends AUnit{
-    private int tempStrength;
-    private int tempAgility;
-    private int tempHealth;
-    private int tempSkill;
-    private int tempLethality;
     private boolean playerTurn = true;
     private Weapon weapon = new Weapon();
     private Armor armor = new Armor();
@@ -26,23 +21,20 @@ public class Player extends AUnit{
 
     @Override
     public int getAgility() {
-        return super.getAgility()+tempAgility;
+        return super.getAgility()+weapon.getAgilityModifier()+armor.getAgilityModifier();
     }
     @Override
     public int getStrength() {
-        return super.getStrength()+tempStrength;
+        return super.getStrength()+weapon.getStrengthModifier()+armor.getStrengthModifier();
     }
-    @Override
-    public int getHealth() {
-        return super.getHealth()+tempHealth;
-    }
+
     @Override
     public int getSkill() {
-        return super.getSkill()+tempSkill;
+        return super.getSkill()+weapon.getSkillModifier()+armor.getSkillModifier();
     }
     @Override
     public int getLethality() {
-        return super.getLethality()+tempLethality;
+        return super.getLethality()+weapon.getLethalityModifier()+armor.getLethalityModifier();
     }
 
     public boolean isPlayerTurn() {
@@ -58,6 +50,15 @@ public class Player extends AUnit{
     public Armor getArmor() {
         return armor;
     }
+    public void equipArmor(Armor armor){
+        this.armor = armor;
+        setHealth(getHealth()+armor.getHealthModifier());
+    }
+    //Adds the bonus hp of the new weapon to the player, this technically heals/damages the player. but it works out gameplay wise
+    public void equipWeapon(Weapon weapon){
+        this.weapon = weapon;
+        setHealth(getHealth()+weapon.getHealthModifier());
+    }
 
     @Override
     public String toString() {
@@ -65,11 +66,11 @@ public class Player extends AUnit{
     }
     @Override
     public int getDamage(Weapon weapon,Armor armor){
-        System.out.println(armor.getDamageReduction());
         int minDamage = this.getBaseDamage()-5;
         int maxDamage = this.getBaseDamage()+5;
-        double damageModifier = 1.0 + (double) tempStrength / 100.0;
+        double damageModifier = 1.0 + getStrength() / 100.0;
         double damage = (Math.random() * (maxDamage - minDamage) + minDamage) * damageModifier;
+        damage = damage + weapon.getBonusDamage();
         //ensures you dont heal the enemies if you dealt negative damage
         damage = Math.max(0,damage);
         return (int) Math.round(damage);
@@ -83,16 +84,12 @@ public class Player extends AUnit{
                         "\n"+  GREEN + (getHealth()+weapon.getHealthModifier()+armor.getHealthModifier()) + RESET +  " health" +
                         "\n" + YELLOW + (getAgility()+weapon.getAgilityModifier()+armor.getAgilityModifier()) +   "%" + RESET + " chance to dodge" +
                         "\n" + RED + (getStrength()+weapon.getStrengthModifier()+armor.getStrengthModifier()) +   "%" + RESET + " increased damage" +
-                        "\n" + BLUE + (getLethality()+weapon.getLethalityModifier()+armor.getLethalityModifier()) + "%" + RESET + " chance to critically strike"
+                        "\n" + BLUE + (getLethality()+weapon.getLethalityModifier()+armor.getLethalityModifier()) + "%" + RESET + " chance to critically strike" +
+                        "\n" + CYAN + (getSkill()+weapon.getSkillModifier()+armor.getSkillModifier()) + "%" + RESET + " chance to hit" +
+                        "\n" + "and deals " + RED + weapon.getBonusDamage() + RESET + " bonus damage" +
+                        "\n" + "and takes " + PURPLE + armor.getDamageReduction() + RESET + " less damage per hit"
         );
 
     }
-
-
-    //TODO Add origin classes with default modifiers
-    //private String race;
-    //private String origin;
-
-    //No setter for name, its Can add later if needed (It should remain unchanged)
 
 }

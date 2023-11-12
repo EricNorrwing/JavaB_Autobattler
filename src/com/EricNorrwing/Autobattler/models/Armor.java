@@ -4,7 +4,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 public class Armor implements IItem{
     //6th item in lists for generating default items, is not in randomizer
-    private String[] typeArray = {"Leather", "Chainmail", "Platemail", "Robe", "Enchanted platearmor", "t-shirt"};
+    private final String[] typeArray = {"Leather", "Chainmail", "Platemail", "Robe", "Enchanted platearmor", "t-shirt"};
     private String name;
     private String affix;
     private String suffix;

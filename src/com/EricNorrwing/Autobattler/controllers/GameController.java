@@ -12,17 +12,26 @@ public class GameController  {
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
-
         //Inserts player to determine the strength of opponents based on player strength
+        //TODO Remove debugstatements
         enemy = generateEnemy(player);
+        Weapon weapon = new Weapon();
+        Armor armor = new Armor();
+        weapon.generateWeapon();
+        armor.generateArmor();
+        player.equipArmor(armor);
+        weapon.generateWeapon();
+        player.equipWeapon(weapon);
+        player.presentUnit();
+
         //Fight until one player dies.
         do {
             runFight(player, enemy);
         }while(!AUnit.checkIfDead(player, enemy));
 
-        //Previous loop breaks if anyone drops below 0 health, now it just runs the next part if the player is alive.
+        //Previous loop breaks if anyone drops below 1 health, now it just runs the next part if the player is alive.
         //May rewrite if I have spare time
-        if (player.getHealth()>= 0) {
+        if (player.getHealth()> 0) {
             System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + enemy.getExperience() * enemy.getLevel()) + " experience");
             player.addExperience(enemy.getExperience());
         } else {
