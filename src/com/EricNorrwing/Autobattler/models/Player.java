@@ -86,8 +86,8 @@ public class Player extends AUnit{
                         "\n" + RED + (getStrength()+weapon.getStrengthModifier()+armor.getStrengthModifier()) +   "%" + RESET + " increased damage" +
                         "\n" + BLUE + (getLethality()+weapon.getLethalityModifier()+armor.getLethalityModifier()) + "%" + RESET + " chance to critically strike" +
                         "\n" + CYAN + (getSkill()+weapon.getSkillModifier()+armor.getSkillModifier()) + "%" + RESET + " chance to hit" +
-                        "\n" + "and deals " + RED + weapon.getBonusDamage() + RESET + " bonus damage" +
-                        "\n" + "and takes " + PURPLE + armor.getDamageReduction() + RESET + " less damage per hit"
+                        "\n" + RED + weapon.getBonusDamage() + RESET + " increased damage per hit" +
+                        "\n" + PURPLE + armor.getDamageReduction() + RESET + " less damage taken per hit"
         );
 
     }

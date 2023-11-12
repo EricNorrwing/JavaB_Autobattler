@@ -85,7 +85,6 @@ public abstract class AUnit {
     public void setExperience(int experience) {
         this.experience = experience;
     }
-
     public int getLevel() {
         return level;
     }

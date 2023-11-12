@@ -1,6 +1,7 @@
 package com.EricNorrwing.Autobattler.controllers;
+import com.EricNorrwing.Autobattler.input.InputScanner;
 import com.EricNorrwing.Autobattler.models.*;
-
+import com.EricNorrwing.Autobattler.viewers.GameViewer;
 
 
 public class GameController  {
@@ -9,21 +10,24 @@ public class GameController  {
 
     private Player player;
     private Enemy enemy;
+    private boolean gameIsRunning = true;
+    GameViewer GV = new GameViewer();
+
 
     public void runGame() throws InterruptedException {
         player = new Player("Benny");
         //Inserts player to determine the strength of opponents based on player strength
-        //TODO Remove debugstatements
         enemy = generateEnemy(player);
+        //TODO Remove debugstatements
+        //Initialize starting items
         Weapon weapon = new Weapon();
         Armor armor = new Armor();
-        weapon.generateWeapon();
-        armor.generateArmor();
-        player.equipArmor(armor);
-        weapon.generateWeapon();
-        player.equipWeapon(weapon);
-        player.presentUnit();
+        armor.generateStartingArmor();
+        weapon.generateStarterWeapon();
 
+        do{
+            GV.gameplayLoopSwitch();
+        }while (gameIsRunning);
         //Fight until one player dies.
         do {
             runFight(player, enemy);

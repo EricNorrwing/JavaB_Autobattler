@@ -125,11 +125,9 @@ public class Weapon implements IItem{
     }
     public void generateStarterWeapon(){
         this.name = "Inverted Spoon that needs cleaning";
-        System.out.println(getName());
     }
     public void generateEnemyStarterWeapon(){
         this.name = "Unsharp claws of feebleness";
-        System.out.println(getName());
     }
     @Override
     public void printItem(IItem item) {

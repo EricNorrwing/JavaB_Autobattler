@@ -72,21 +72,29 @@ public class Enemy extends AUnit{
                 //Greater
                 setHealth((int) (getHealth() * 1.2));
                 setStrength((int) (getStrength() * 1.2));
+                setExperience((int) (getExperience() * 1.5));
             }
-            case 1 ->
+            case 1 -> {
                 //Juggernaught
-                    setHealth((int) (getHealth() * 1.8));
-            case 2 ->
+                setHealth((int) (getHealth() * 1.8));
+                setExperience((int) (getExperience() * 1.1));
+            }
+            case 2 -> {
                 //Agile
-                    setAgility((getAgility() + 10));
+                setAgility((getAgility() + 10));
+                setExperience((int) (getExperience() * 1.1));
+            }
             case 3 -> {
                 //Quick
                 setAgility((getAgility() + 5));
                 setLethality((getLethality() + 10));
+                setExperience((int) (getExperience() * 1.1));
             }
-            case 4 ->
+            case 4 -> {
                 //Strong
-                    setStrength((int) (getStrength() * 1.5));
+                setStrength((int) (getStrength() * 1.5));
+                setExperience((int) (getExperience() * 1.3));
+            }
             case 5 ->
                 //Weak
                     setStrength((int) (getStrength() * 0.5));
@@ -95,13 +103,16 @@ public class Enemy extends AUnit{
                 setHealth((int) (getHealth() * 0.5));
                 setAgility((getAgility() + 10));
             }
-            case 7 ->
+            case 7 -> {
                 //Keen
-                    setLethality((getLethality() + 30));
+                setLethality((getLethality() + 30));
+                setExperience((int) (getExperience() * 1.2));
+            }
             case 8 -> {
                 //Massive
                 setHealth((int) (getHealth() * 1.5));
                 setStrength((int) (getStrength() * 1.5));
+                setExperience((int) (getExperience() * 1.6));
             }
             case 9 -> {
             }
@@ -116,15 +127,19 @@ public class Enemy extends AUnit{
                 //Wraith
                 setAgility((getAgility() + 30));
                 setHealth((int) (getHealth() * 0.5));
+                setExperience((int) (getExperience() * 1.1));
             }
-            case 1 ->
+            case 1 -> {
                 //Bandit
-                    setLethality((getLethality() + 20));
+                setLethality((getLethality() + 20));
+                setExperience((int) (getExperience() * 1.5));
+            }
             case 2 -> {
                 //Dragons are very powerful and should be avoided.
                 setStrength((int) (getStrength() * 2.5));
                 setHealth((int) (getHealth() * 2.5));
                 setLethality((getLethality() + 100));
+                setExperience((getExperience() * 5));
             }
             case 3 -> {
                 //Zombies
@@ -132,25 +147,30 @@ public class Enemy extends AUnit{
                 setAgility((getAgility() - 100));
                 setExperience((int) (getExperience() * 0.25));
             }
-            //TODO drops no loot
             case 4 -> {
                 //Ghost
                 setAgility((getAgility() + 40));
                 setHealth((int) (getHealth() * 0.25));
                 setLethality((getLethality() + 25));
+                setExperience((int) (getExperience() * 1.1));
             }
-            case 5 ->
+            case 5 -> {
                 //Mimic
                 //TODO Always drop loot
-                    setHealth((int) (getHealth() * 1.5));
+                setHealth((int) (getHealth() * 1.5));
+                setExperience((int) (getExperience() * 1.1));
+            }
             case 6 -> {
                 //Lich
                 setHealth((int) (getHealth() * 0.5));
                 setLethality((getLethality() + 25));
+                setExperience((int) (getExperience() * 1.1));
             }
-            case 7 ->
+            case 7 -> {
                 //Wolf
-                    setLethality((getLethality() + 30));
+                setLethality((getLethality() + 30));
+                setExperience((int) (getExperience() * 1.1));
+            }
             case 8 -> {
             }
             //Witch
@@ -159,6 +179,7 @@ public class Enemy extends AUnit{
                 //Duelist
                 setLethality((getLethality() + 25));
                 setAgility((getAgility() + 15));
+                setExperience((int) (getExperience() * 1.3));
             }
 
         }
@@ -166,9 +187,11 @@ public class Enemy extends AUnit{
     public void applySuffixModifiers(){
         //Modifiers for suffixes
         switch (getSuffix()) {
-            case 0 ->
+            case 0 -> {
                 //Frail
-                    setHealth((int) (getHealth() * 0.5));
+                setHealth((int) (getHealth() * 0.5));
+                setExperience((int) (getExperience() * 0.75));
+            }
             case 1 ->
                 //The bright
                     setAgility((getAgility() + 5));
@@ -179,24 +202,29 @@ public class Enemy extends AUnit{
             case 3 -> {
                 //Brutality
                 setAgility((getAgility() + 5));
-                setStrength((int) (getStrength() + 20));
+                setStrength((getStrength() + 20));
+                setExperience((int) (getExperience() * 1.1));
             }
-            case 4 ->
+            case 4 -> {
                 //of Deception
-                //TODO drops no loot unless mimic?
-                    setAgility((getAgility() + 10));
-            case 5 -> {
+                setAgility((getAgility() + 10));
+                setExperience((int) (getExperience() * 0.25));
             }
-            //of Vengeance
-            // TODO This foe strikes you once more if it dies first?
+            case 5 -> {
+                //of Vengeance
+                setExperience((int) (getExperience() * 0.75));
+            }
             case 6 -> {
                 //of Chaos
                 setLethality((getLethality() + 30));
                 setAgility((getAgility() + 15));
+                setExperience((int) (getExperience() * 1.5));
             }
-            case 7 ->
+            case 7 -> {
                 //of Laziness
-                    setAgility((getAgility() - 50));
+                setAgility((getAgility() - 50));
+                setExperience((int) (getExperience() * 0.5));
+            }
             case 8 -> {
                 //of ineptiude
                 setSkill((int) (getSkill() * 0.5));
@@ -205,13 +233,12 @@ public class Enemy extends AUnit{
             }
             case 9 -> {
                 //the uneducated
+                setExperience((0));
             }
-            //TODO make it do more damage the lower hp it has
         }
     }
     @Override
     public int getDamage(Weapon weapon,Armor armor){
-        System.out.println(armor.getDamageReduction());
         int minDamage = this.getBaseDamage()-5;
         int maxDamage = this.getBaseDamage()+5;
         double damageModifier = 1.0 + getStrength() / 100.0;

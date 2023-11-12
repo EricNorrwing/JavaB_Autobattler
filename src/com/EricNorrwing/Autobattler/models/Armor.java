@@ -151,11 +151,9 @@ public class Armor implements IItem{
     }
     public void generateStartingArmor(){
         this.name = "Old t-shirt questionable origin";
-        System.out.println(getName());
     }
     public void generateEnemyStarterArmor(){
         this.name = "Thin hide of snowflakes";
-        System.out.println(getName());
     }
 
 
