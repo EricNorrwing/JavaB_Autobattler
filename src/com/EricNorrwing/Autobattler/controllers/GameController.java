@@ -1,17 +1,17 @@
 package com.EricNorrwing.Autobattler.controllers;
 import com.EricNorrwing.Autobattler.input.InputScanner;
 import com.EricNorrwing.Autobattler.models.*;
-import com.EricNorrwing.Autobattler.viewers.GameViewer;
+import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 
 public class GameController  {
 
     // TODO Everything
 
-    private Player player;
+    private Player player = new Player("Benny");
     private Enemy enemy;
     private boolean gameIsRunning = true;
-    GameViewer GV = new GameViewer();
+    InputScanner scanner = new InputScanner();
 
 
     public void runGame() throws InterruptedException {
@@ -25,14 +25,12 @@ public class GameController  {
         armor.generateStartingArmor();
         weapon.generateStarterWeapon();
 
-        do{
-            GV.gameplayLoopSwitch();
-        }while (gameIsRunning);
-        //Fight until one player dies.
-        do {
+
+        //TODO REMOVE Fight until one player dies.
+        /*do {
             runFight(player, enemy);
         }while(!AUnit.checkIfDead(player, enemy));
-
+        */
         //Previous loop breaks if anyone drops below 1 health, now it just runs the next part if the player is alive.
         //May rewrite if I have spare time
         if (player.getHealth()> 0) {
@@ -44,7 +42,29 @@ public class GameController  {
 
     }
 
+    public void generateEncounter() throws InterruptedException {
+        // TODO ADD TO STATEMENT (int) (Math.random()*3)+1
+        switch (1){
+            case 1 -> {
+                System.out.println("As benny travels further into the woods he finds ... ");
+                Enemy enemy = generateEnemy(player);
+                enemy.presentUnit();
+                System.out.println("And benny only has " + RED + player.getHealth() + RESET + " hp left...");
+                fightOrFlee(enemy, player);
+            }
+            case 2 -> player.presentUnit();
+            default -> {
+                System.out.println("End of generate encounter");
+            }
+        }
+    }
 
+    public void fightOrFlee(Enemy enemy,Player player) throws InterruptedException {
+        System.out.println("Do you wish to fight this foe? Y/N, running away has a cost...");
+        if (scanner.getYesNo().equals("y")){
+            runFight(player, enemy);
+        }
+    }
 
     //Randomizes affixes/Suffixes and generates a name for the enemy
     public Enemy generateEnemy(Player player) {
@@ -52,34 +72,31 @@ public class GameController  {
         enemy.generateName();
         enemy.setLevel(player.getLevel()+(int) (Math.random()*3) +1);
         enemy.setExperience(50);
+        enemy.setMoney(50);
 
-        //Buffs the enemies with 20% per level they randomly spawned on.
+        //Buffs the enemies with 20% per level they randomly spawned on and applies modifiers based off randomized names
         enemy.applyLevelModifer(enemy);
         enemy.applyTypeModifiers();
         enemy.applyAffixModifiers();
         enemy.applySuffixModifiers();
-        //TODO REMOVE DEBUG STATEMENT
-        enemy.presentUnit();
-        player.presentUnit();
         return enemy;
     }
 
     //Trades blows and turns between player and enemy until one dies
     // TODO Change delays
     public void runFight(Player player, Enemy enemy) throws InterruptedException {
-        if (player.isPlayerTurn()) {
-            player.attack(player, enemy,player.getWeapon(), player.getArmor());
-            //Slows down the output to make it more intense!
-            Thread.sleep(1);
-        } else {
-            enemy.attack(enemy, player, enemy.getWeapon(), enemy.getArmor());
-            Thread.sleep(1);
-        }
-        player.setPlayerTurn(!player.isPlayerTurn());
+        do {
+            if (player.isPlayerTurn()) {
+                player.attack(player, enemy, player.getWeapon(), player.getArmor());
+                //Slows down the output to make it more intense!
+                Thread.sleep(1);
+            } else {
+                enemy.attack(enemy, player, enemy.getWeapon(), enemy.getArmor());
+                Thread.sleep(1);
+            }
+            player.setPlayerTurn(!player.isPlayerTurn());
+        } while (!AUnit.checkIfDead(player, enemy));
     }
-
-
-
 }
 
 

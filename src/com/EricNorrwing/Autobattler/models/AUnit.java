@@ -10,10 +10,18 @@ public abstract class AUnit {
     private int lethality = 5;
     private int health = 100;
     private int experience = 0;
+    private int money = 0;
     private int level = 1;
     private int baseDamage = 10;
 
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 
     //Empty constructor
     public AUnit(){
