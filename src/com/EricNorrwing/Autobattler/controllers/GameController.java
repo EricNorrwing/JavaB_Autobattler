@@ -1,6 +1,8 @@
 package com.EricNorrwing.Autobattler.controllers;
 import com.EricNorrwing.Autobattler.input.InputScanner;
 import com.EricNorrwing.Autobattler.models.*;
+import com.EricNorrwing.Autobattler.viewers.GameViewer;
+
 import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 
@@ -43,19 +45,56 @@ public class GameController  {
     }
 
     public void generateEncounter() throws InterruptedException {
-        // TODO ADD TO STATEMENT (int) (Math.random()*3)+1
-        switch (1){
+        System.out.println("As benny travels further into the woods he finds... ");
+        switch ((int) (Math.random()*5)+1){
             case 1 -> {
-                System.out.println("As benny travels further into the woods he finds ... ");
+                System.out.println("a foe!");
                 Enemy enemy = generateEnemy(player);
                 enemy.presentUnit();
                 System.out.println("And benny only has " + RED + player.getHealth() + RESET + " hp left...");
                 fightOrFlee(enemy, player);
             }
-            case 2 -> player.presentUnit();
-            default -> {
-                System.out.println("End of generate encounter");
+            case 2 -> {
+                int coins = (int) (Math.random()*100) +1;
+                System.out.println(" a trove of treasure! Benny opens the trove and finds... " +
+                        "\n" + " a pouch of coins! Benny pockets " + coins + " coins and moves on");
             }
+            case 3 -> {
+                Weapon weapon = new Weapon();
+                weapon.generateWeapon();
+                System.out.println("""
+                         a trove of treasure! Benny opens the trove and finds...
+                        a weapon! He examines it and sees that it is a
+                        """);
+                weapon.printItem(weapon);
+                System.out.println("Do you wish to equip this weapon?");
+                if (scanner.getYesNo().equals("y")){
+                    player.equipWeapon(weapon);
+                } else {
+                    System.out.println("Benny discards the weapon, he does not recycle it");
+                }
+                //TODO DEBUG STATEMENT
+                player.presentUnit();
+            }
+            case 4 -> {
+                Armor armor = new Armor();
+                armor.generateArmor();
+                System.out.println("""
+                        a trove of treasure! Benny opens the trove and finds...
+                        a piece of armor! He examines it and sees that it is a
+                        """);
+                armor.printItem(armor);
+                System.out.println("Do you wish to equip this weapon?");
+                if (scanner.getYesNo().equals("y")){
+                    player.equipArmor(armor);
+                } else {
+                    System.out.println("Benny discards the weapon, he does not recycle it");
+                }
+                //TODO DEBUG STATEMENT
+                player.presentUnit();
+            }
+            case 5 -> System.out.println("a shop!");
+            //TODO insert shop features
         }
     }
 
