@@ -10,15 +10,16 @@ public class GameViewer {
     InputScanner scanner = new InputScanner();
     GameController gc = new GameController();
     Player player;
-    boolean gameIsRunning;
+    boolean gameIsRunning = true;
 
     //Gameplay loop runs here
     public void gameplayLoopSwitch() throws InterruptedException {
         initializeGame();
+        System.out.println("Welcome to the game, chose your next move...");
         do {
             presentGameplayMenu();
             switch (scanner.choseAction()) {
-                case 1 -> gc.generateEncounter();
+                case 1 -> gc.generateEncounter(player);
                 case 2 -> player.presentUnit();
                 case 3 -> System.exit(0);
 
@@ -26,8 +27,6 @@ public class GameViewer {
             }
         } while (gameIsRunning);
     }
-
-
     public void initializeGame(){
         Player player = new Player("Benny");
         Weapon weapon = new Weapon();
@@ -38,7 +37,6 @@ public class GameViewer {
     }
     public void presentGameplayMenu(){
         System.out.println("""
-                Welcome to the game, chose your next move...
                 1. Benny is feeling fearless and continues his travels
                 2. Benny is curious to how healthy he is, and the state of his character
                 3. Benny is afraid and wants to flee the scene

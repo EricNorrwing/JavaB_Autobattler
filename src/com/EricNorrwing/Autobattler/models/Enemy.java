@@ -10,8 +10,6 @@ public class Enemy extends AUnit{
     private int suffix;
 
     private Weapon weapon = new Weapon();
-
-
     private Armor armor = new Armor();
 
 
@@ -46,12 +44,6 @@ public class Enemy extends AUnit{
     }
 
     //Methods
-    public void applyLevelModifer(Enemy enemy){
-        double modifier = 1.2;
-        enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, enemy.getLevel())));
-        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, enemy.getLevel())));
-        enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, enemy.getLevel())));
-    }
     public Enemy(int type, int affix, int suffix) {
         this.type = type;
         this.affix = affix;
@@ -65,6 +57,12 @@ public class Enemy extends AUnit{
         // TODO This just needs to intialize a weapon to put into the attack function, it will be final after generation.
         weapon.generateEnemyStarterWeapon();
         armor.generateEnemyStarterArmor();
+    }
+    public void applyLevelModifer(Enemy enemy){
+        double modifier = 1.1;
+        enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, enemy.getLevel())));
+        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, enemy.getLevel())));
+        enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, enemy.getLevel())));
     }
     public void applyAffixModifiers(){
         switch (getAffix()) {

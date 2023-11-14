@@ -8,6 +8,7 @@ public abstract class AUnit {
     private int agility = 10;
     private int skill = 100;
     private int lethality = 5;
+    private int maxHealth = 0;
     private int health = 100;
     private int experience = 0;
     private int money = 0;
@@ -82,14 +83,6 @@ public abstract class AUnit {
         return experience;
     }
 
-    public void addExperience(int experience) {
-        setExperience(getExperience()+experience);
-        while(getExperience()>=100) {
-            setExperience(getExperience()-100);
-            addLevel(1);
-            System.out.println("You have leveled up! new level is: " + getLevel());
-        }
-    }
     public void setExperience(int experience) {
         this.experience = experience;
     }
@@ -101,10 +94,11 @@ public abstract class AUnit {
         this.level = level;
     }
     public void addLevel(int level) {
-        //Updates all values by 1.2 when you levelup
-        setStrength((int)(getStrength() * Math.pow(1.2, level)));
-        setAgility((int)(getAgility() * Math.pow(1.2, level)));
-        setHealth((int)(getHealth() * Math.pow(1.2, level)));
+        //Updates all values by 1.1 when you levelup
+        double mod = 1.1;
+        setStrength((int)(getStrength() * Math.pow(mod, level)));
+        setAgility((int)(getAgility() * Math.pow(mod, level)));
+        setHealth((int)(getHealth() * Math.pow(mod, level)));
         setLevel(getLevel()+level);
     }
 
@@ -120,13 +114,15 @@ public abstract class AUnit {
         return (int) Math.round(damage);
     }
 
-
     // Methods here
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
 
     public abstract void presentUnit();
 
     public static boolean hitLands(AUnit attacker, AUnit target){
-        return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() - target.getAgility());
+        return (int) (Math.random() * 100) + 1 <= (attacker.getSkill()+ - target.getAgility());
     }
     //Trades blows between Units
     public void attack(AUnit attacker, AUnit target, Weapon weapon, Armor armor) {

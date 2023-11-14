@@ -117,9 +117,7 @@ public class Weapon implements IItem{
         return lethalityModifier;
     }
 
-
     public void generateWeapon(){
-        resetStats();
         generateName();
         initializeStats();
     }

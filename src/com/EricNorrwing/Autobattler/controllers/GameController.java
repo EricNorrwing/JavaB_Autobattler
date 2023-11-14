@@ -8,45 +8,11 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 
 public class GameController  {
 
-    // TODO Everything
-
-    private Player player = new Player("Benny");
-    private Enemy enemy;
-    private boolean gameIsRunning = true;
     InputScanner scanner = new InputScanner();
 
-
-    public void runGame() throws InterruptedException {
-        player = new Player("Benny");
-        //Inserts player to determine the strength of opponents based on player strength
-        enemy = generateEnemy(player);
-        //TODO Remove debugstatements
-        //Initialize starting items
-        Weapon weapon = new Weapon();
-        Armor armor = new Armor();
-        armor.generateStartingArmor();
-        weapon.generateStarterWeapon();
-
-
-        //TODO REMOVE Fight until one player dies.
-        /*do {
-            runFight(player, enemy);
-        }while(!AUnit.checkIfDead(player, enemy));
-        */
-        //Previous loop breaks if anyone drops below 1 health, now it just runs the next part if the player is alive.
-        //May rewrite if I have spare time
-        if (player.getHealth()> 0) {
-            System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + enemy.getExperience() * enemy.getLevel()) + " experience");
-            player.addExperience(enemy.getExperience());
-        } else {
-            System.out.println(enemy.printEnemyName(enemy) + " have defeated " + player.printPlayerName(player) + " and the game is over");
-        }
-
-    }
-
-    public void generateEncounter() throws InterruptedException {
+    public void generateEncounter(Player player) throws InterruptedException {
         System.out.println("As benny travels further into the woods he finds... ");
-        switch ((int) (Math.random()*5)+1){
+        switch (randomizeEncounter()){
             case 1 -> {
                 System.out.println("a foe!");
                 Enemy enemy = generateEnemy(player);
@@ -73,8 +39,6 @@ public class GameController  {
                 } else {
                     System.out.println("Benny discards the weapon, he does not recycle it");
                 }
-                //TODO DEBUG STATEMENT
-                player.presentUnit();
             }
             case 4 -> {
                 Armor armor = new Armor();
@@ -84,14 +48,12 @@ public class GameController  {
                         a piece of armor! He examines it and sees that it is a
                         """);
                 armor.printItem(armor);
-                System.out.println("Do you wish to equip this weapon?");
+                System.out.println("Do you wish to equip this armor?");
                 if (scanner.getYesNo().equals("y")){
                     player.equipArmor(armor);
                 } else {
-                    System.out.println("Benny discards the weapon, he does not recycle it");
+                    System.out.println("Benny discards the armor, he does not recycle it");
                 }
-                //TODO DEBUG STATEMENT
-                player.presentUnit();
             }
             case 5 -> System.out.println("a shop!");
             //TODO insert shop features
@@ -102,6 +64,14 @@ public class GameController  {
         System.out.println("Do you wish to fight this foe? Y/N, running away has a cost...");
         if (scanner.getYesNo().equals("y")){
             runFight(player, enemy);
+            if (player.getHealth()> 0) {
+                System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + enemy.getExperience() * enemy.getLevel()) + " experience");
+                System.out.println("and Benny pockets " + YELLOW + enemy.getMoney() + RESET + " coins");
+                player.addExperience(enemy.getExperience(),player);
+                player.setMoney(player.getMoney()+enemy.getMoney());
+            } else {
+                System.out.println(enemy.printEnemyName(enemy) + " have defeated " + player.printPlayerName(player) + " and the game is over");
+            }
         }
     }
 
@@ -109,9 +79,11 @@ public class GameController  {
     public Enemy generateEnemy(Player player) {
         Enemy enemy = new Enemy(((int) (Math.random() * 10)),((int) (Math.random() * 10)), ((int) (Math.random() * 10)));
         enemy.generateName();
+        enemy.setBaseDamage(7);
         enemy.setLevel(player.getLevel()+(int) (Math.random()*3) +1);
         enemy.setExperience(50);
-        enemy.setMoney(50);
+        enemy.setHealth(50);
+        enemy.setMoney(20);
 
         //Buffs the enemies with 20% per level they randomly spawned on and applies modifiers based off randomized names
         enemy.applyLevelModifer(enemy);
@@ -128,13 +100,26 @@ public class GameController  {
             if (player.isPlayerTurn()) {
                 player.attack(player, enemy, player.getWeapon(), player.getArmor());
                 //Slows down the output to make it more intense!
-                Thread.sleep(1);
+                Thread.sleep(200);
             } else {
                 enemy.attack(enemy, player, enemy.getWeapon(), enemy.getArmor());
-                Thread.sleep(1);
+                Thread.sleep(200);
             }
             player.setPlayerTurn(!player.isPlayerTurn());
         } while (!AUnit.checkIfDead(player, enemy));
+    }
+    public int randomizeEncounter(){
+        int value = (int) (Math.random()*100)+1;
+        if (value <= 60){
+            return 1;
+        } else if (value <= 70) {
+            return 2;
+        } else if (value <= 80) {
+            return 3;
+        } else if (value <= 90){
+            return 4;
+        }
+        return 5;
     }
 }
 

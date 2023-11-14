@@ -54,10 +54,20 @@ public class Player extends AUnit{
         this.armor = armor;
         setHealth(getHealth()+armor.getHealthModifier());
     }
+
     //Adds the bonus hp of the new weapon to the player, this technically heals/damages the player. but it works out gameplay wise
     public void equipWeapon(Weapon weapon){
         this.weapon = weapon;
         setHealth(getHealth()+weapon.getHealthModifier());
+    }
+    public void addExperience(int experience, Player player) {
+        setExperience(getExperience()+experience);
+        while(getExperience()>=100) {
+            setExperience(getExperience()-100);
+            addLevel(1);
+            System.out.println("You have leveled up! new level is: " + getLevel());
+            player.presentUnit();
+        }
     }
 
     @Override
@@ -81,11 +91,11 @@ public class Player extends AUnit{
     public void presentUnit() {
         System.out.println(
                 CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
-                        "\n"+  GREEN + (getHealth()+weapon.getHealthModifier()+armor.getHealthModifier()) + RESET +  " health" +
-                        "\n" + YELLOW + (getAgility()+weapon.getAgilityModifier()+armor.getAgilityModifier()) +   "%" + RESET + " chance to dodge" +
-                        "\n" + RED + (getStrength()+weapon.getStrengthModifier()+armor.getStrengthModifier()) +   "%" + RESET + " increased damage" +
-                        "\n" + BLUE + (getLethality()+weapon.getLethalityModifier()+armor.getLethalityModifier()) + "%" + RESET + " chance to critically strike" +
-                        "\n" + CYAN + (getSkill()+weapon.getSkillModifier()+armor.getSkillModifier()) + "%" + RESET + " chance to hit" +
+                        "\n"+  GREEN + getHealth() + RESET +  " health" +
+                        "\n" + YELLOW + (getAgility()) +   "%" + RESET + " chance to dodge" +
+                        "\n" + RED + (getStrength()) +   "%" + RESET + " increased damage" +
+                        "\n" + BLUE + (getLethality()) + "%" + RESET + " chance to critically strike" +
+                        "\n" + CYAN + (getSkill()) + "%" + RESET + " chance to hit" +
                         "\n" + RED + weapon.getBonusDamage() + RESET + " increased damage per hit" +
                         "\n" + PURPLE + armor.getDamageReduction() + RESET + " less damage taken per hit"
         );
