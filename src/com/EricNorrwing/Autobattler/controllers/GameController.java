@@ -12,7 +12,8 @@ public class GameController  {
 
     public void generateEncounter(Player player) throws InterruptedException {
         System.out.println("As benny travels further into the woods he finds... ");
-        switch (randomizeEncounter()){
+        // randomizeEncounter()
+        switch (5){
             case 1 -> {
                 System.out.println("a foe!");
                 Enemy enemy = generateEnemy(player);
@@ -55,8 +56,52 @@ public class GameController  {
                     System.out.println("Benny discards the armor, he does not recycle it");
                 }
             }
-            case 5 -> System.out.println("a shop!");
-            //TODO insert shop features
+            case 5 -> {
+                System.out.println("Benny rounds an turn and finds himself facing a racoon pulling a backpack. He takes a look at benny before clinking his purse and motioning him to come closer to take a look inside the bag ");
+                switch ((int) (Math.random()*2)+1){
+                    case 1 -> {
+                        int cost = (int) (Math.random()*100)+50;
+                        Weapon weapon = new Weapon();
+                        weapon.generateWeapon();
+                        System.out.println("The racoon showcases a weapon he found in his travels, and asks if you wish to buy this item (Y/N)");
+                        weapon.printItem(weapon);
+                        System.out.println("This item costs " + cost);
+                        if (scanner.getYesNo().equals("y")) {
+                            if ((player.getMoney() - cost) >= 0) {
+                                System.out.println("Pleasure doing business says the raccoon in a perfect british accent, before magicly disapearing along with his bag");
+                                player.equipWeapon(weapon);
+                                player.setMoney(player.getMoney() - cost);
+                                System.out.println("Benny checks his pockets and realizes he has " + player.getMoney() + " coins left");
+                            } else {
+                                System.out.println("You dont have enough money, begone adventurer! He says and dissapears with a poof");
+                            }
+                        }else {
+                            System.out.println("Shame, my goods are of the highest quality it says before painstakingly pulling the bag. Benny is reasonably certain its all an act but does not investigate further");
+                        }
+
+                    }
+                    case 2 -> {
+                        int cost = (int) (Math.random() * 100) + 50;
+                        Armor armor = new Armor();
+                        armor.generateArmor();
+                        System.out.println("The racoon showcases a weapon he found in his travels, and asks if you wish to buy this item");
+                        armor.printItem(armor);
+                        System.out.println("This item costs " + cost);
+                        if (scanner.getYesNo().equals("y")) {
+                            if ((player.getMoney() - cost) >= 0) {
+                                System.out.println("Pleasure doing business says the raccoon in a perfect british accent, before magicly disapearing along with his bag");
+                                player.equipArmor(armor);
+                                player.setMoney(player.getMoney() - cost);
+                                System.out.println("Benny checks his pockets and realizes he has " + YELLOW+ player.getMoney() + RESET + " coins left");
+                            } else {
+                                System.out.println("You dont have enough money, begone adventurer! He says and dissapears with a poof");
+                            }
+                        }else {
+                            System.out.println("Shame, my goods are of the highest quality it says before painstakingly pulling the bag. Benny is reasonably certain its all an act but does not investigate further");
+                        }
+                    }
+                }
+            }
         }
     }
 
