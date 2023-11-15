@@ -1,7 +1,6 @@
 package com.EricNorrwing.Autobattler.controllers;
 import com.EricNorrwing.Autobattler.input.InputScanner;
 import com.EricNorrwing.Autobattler.models.*;
-import com.EricNorrwing.Autobattler.viewers.GameViewer;
 
 import static com.EricNorrwing.Autobattler.models.Colors.*;
 
@@ -10,10 +9,12 @@ public class GameController  {
 
     InputScanner scanner = new InputScanner();
 
+    //Randomizes an encounter that is either:
+    //Presents a fight, find some gold, Find a weapon, find some armor, find a merchant, or find a healing potion.
+    //The odds are 60%, 5%, 5%, 10%, 10%, 10%
     public void generateEncounter(Player player) throws InterruptedException {
         System.out.println("As benny travels further into the woods he finds... ");
-        // randomizeEncounter()
-        switch (5){
+        switch (randomizeEncounter()){
             case 1 -> {
                 System.out.println("a foe!");
                 Enemy enemy = generateEnemy(player);
@@ -23,14 +24,14 @@ public class GameController  {
             }
             case 2 -> {
                 int coins = (int) (Math.random()*100) +1;
-                System.out.println(" a trove of treasure! Benny opens the trove and finds... " +
+                System.out.println(" a " + YELLOW +  "trove of treasure!" + RESET + " Benny opens the trove and finds... " +
                         "\n" + " a pouch of coins! Benny pockets " + coins + " coins and moves on");
             }
             case 3 -> {
                 Weapon weapon = new Weapon();
                 weapon.generateWeapon();
                 System.out.println("""
-                         a trove of treasure! Benny opens the trove and finds...
+                        a trove of treasure! Benny opens the trove and finds...
                         a weapon! He examines it and sees that it is a
                         """);
                 weapon.printItem(weapon);
@@ -64,6 +65,7 @@ public class GameController  {
                         Weapon weapon = new Weapon();
                         weapon.generateWeapon();
                         System.out.println("The racoon showcases a weapon he found in his travels, and asks if you wish to buy this item (Y/N)");
+                        System.out.println("Benny checks his pockets and sees that he has " + YELLOW + player.getMoney() + RESET + " coins");
                         weapon.printItem(weapon);
                         System.out.println("This item costs " + cost);
                         if (scanner.getYesNo().equals("y")) {
@@ -84,7 +86,8 @@ public class GameController  {
                         int cost = (int) (Math.random() * 100) + 50;
                         Armor armor = new Armor();
                         armor.generateArmor();
-                        System.out.println("The racoon showcases a weapon he found in his travels, and asks if you wish to buy this item");
+                        System.out.println("The racoon showcases a piece of armor he found in his travels, and makes a gestures that indicate hes asking if you wish to buy this item (Y/N)");
+                        System.out.println("Benny checks his pockets and sees that he has " + YELLOW + player.getMoney() + RESET + " coins");
                         armor.printItem(armor);
                         System.out.println("This item costs " + cost);
                         if (scanner.getYesNo().equals("y")) {
@@ -102,6 +105,12 @@ public class GameController  {
                     }
                 }
             }
+            case 6 -> {
+                int health = (int) (100*Math.pow(1.2,player.getLevel()));
+                System.out.println("Benny finds a healing potion! and it heals him to " + health + " health");
+                player.setHealth(health);
+            }
+
         }
     }
 
@@ -110,12 +119,16 @@ public class GameController  {
         if (scanner.getYesNo().equals("y")){
             runFight(player, enemy);
             if (player.getHealth()> 0) {
-                System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + (player.getExperience() + enemy.getExperience() * enemy.getLevel()) + " experience");
-                System.out.println("and Benny pockets " + YELLOW + enemy.getMoney() + RESET + " coins");
-                player.addExperience(enemy.getExperience(),player);
+                int experienceGained = (player.getExperience() + enemy.getExperience() * enemy.getLevel());
+                System.out.println(player.getName() + " have defeated " + enemy.printEnemyName(enemy) + " " + enemy.getLevel() + " and have been rewarded " + experienceGained + " experience");
+                System.out.println("and Benny also pockets " + YELLOW + enemy.getMoney() + RESET + " coins");
+                player.addExperience(experienceGained,player, player.getWeapon(), player.getArmor());
                 player.setMoney(player.getMoney()+enemy.getMoney());
+                player.setTurnsPlayed(player.getTurnsPlayed()+1);
             } else {
                 System.out.println(enemy.printEnemyName(enemy) + " have defeated " + player.printPlayerName(player) + " and the game is over");
+                System.out.println("Benny did however defeat " + RED_BOLD + player.getTurnsPlayed() + RESET + " monsters before his demise");
+                player.setPlayerIsDead(false);
             }
         }
     }
@@ -124,10 +137,10 @@ public class GameController  {
     public Enemy generateEnemy(Player player) {
         Enemy enemy = new Enemy(((int) (Math.random() * 10)),((int) (Math.random() * 10)), ((int) (Math.random() * 10)));
         enemy.generateName();
-        enemy.setBaseDamage(7);
+        enemy.setBaseDamage(8);
         enemy.setLevel(player.getLevel()+(int) (Math.random()*3) +1);
-        enemy.setExperience(50);
-        enemy.setHealth(50);
+        enemy.setExperience(10);
+        enemy.setHealth(65);
         enemy.setMoney(20);
 
         //Buffs the enemies with 20% per level they randomly spawned on and applies modifiers based off randomized names
@@ -153,18 +166,21 @@ public class GameController  {
             player.setPlayerTurn(!player.isPlayerTurn());
         } while (!AUnit.checkIfDead(player, enemy));
     }
+    //Weighted randomizer for encounters to increase chance for fightin and reduce chance for other events
     public int randomizeEncounter(){
         int value = (int) (Math.random()*100)+1;
         if (value <= 60){
             return 1;
         } else if (value <= 70) {
             return 2;
-        } else if (value <= 80) {
+        } else if (value <= 75) {
             return 3;
-        } else if (value <= 90){
+        } else if (value <= 80){
             return 4;
+        } else if (value <= 90){
+            return 5;
         }
-        return 5;
+        return 6;
     }
 }
 

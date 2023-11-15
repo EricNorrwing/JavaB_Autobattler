@@ -10,7 +10,7 @@ public class GameViewer {
     InputScanner scanner = new InputScanner();
     GameController gc = new GameController();
     Player player;
-    boolean gameIsRunning = true;
+
 
     //Gameplay loop runs here
     public void gameplayLoopSwitch() throws InterruptedException {
@@ -20,12 +20,19 @@ public class GameViewer {
             presentGameplayMenu();
             switch (scanner.choseAction()) {
                 case 1 -> gc.generateEncounter(player);
-                case 2 -> player.presentUnit();
+                case 2 ->{
+                    player.presentUnit();
+                    Weapon weapon = player.getWeapon();
+                    Armor armor = player.getArmor();
+                    weapon.printItem(weapon);
+                    armor.printItem(armor);
+                }
                 case 3 -> System.exit(0);
+                //case 4 -> saveGame();
 
-                default -> System.out.println("Not a correct statement");
+                default -> System.out.println("Press correct keys please");
             }
-        } while (gameIsRunning);
+        } while (player.getPlayerIsAlive());
     }
     public void initializeGame(){
         Player player = new Player("Benny");

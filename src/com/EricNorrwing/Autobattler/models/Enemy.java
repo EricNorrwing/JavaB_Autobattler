@@ -17,25 +17,14 @@ public class Enemy extends AUnit{
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public int getAffix() {
         return affix;
-    }
-
-    public void setAffix(int affix) {
-        this.affix = affix;
     }
 
     public int getSuffix() {
         return suffix;
     }
 
-    public void setSuffix(int suffix) {
-        this.suffix = suffix;
-    }
     public Weapon getWeapon() {
         return weapon;
     }

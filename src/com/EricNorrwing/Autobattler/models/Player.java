@@ -6,8 +6,11 @@ import static com.EricNorrwing.Autobattler.models.Colors.RESET;
 
 public class Player extends AUnit{
     private boolean playerTurn = true;
+    private int turnsPlayed;
+    private boolean playerIsDead = true;
     private Weapon weapon = new Weapon();
     private Armor armor = new Armor();
+
 
     //Constructor
     public Player(String name){
@@ -16,8 +19,21 @@ public class Player extends AUnit{
         weapon.generateStarterWeapon();
         armor.generateStartingArmor();
     }
-    //Overriding getters to account for the bonuses of the weapons
-    //TODO CHECK IF THIS WORKS
+    public boolean getPlayerIsAlive() {
+        return playerIsDead;
+    }
+
+    public void setPlayerIsDead(boolean playerIsDead) {
+        this.playerIsDead = playerIsDead;
+    }
+
+    public int getTurnsPlayed() {
+        return turnsPlayed;
+    }
+
+    public void setTurnsPlayed(int turnsPlayed) {
+        this.turnsPlayed = turnsPlayed;
+    }
 
     @Override
     public int getAgility() {
@@ -60,12 +76,13 @@ public class Player extends AUnit{
         this.weapon = weapon;
         setHealth(getHealth()+weapon.getHealthModifier());
     }
-    public void addExperience(int experience, Player player) {
+    public void addExperience(int experience, Player player, Weapon weapon, Armor armor) {
         setExperience(getExperience()+experience);
         while(getExperience()>=100) {
             setExperience(getExperience()-100);
             addLevel(1);
-            System.out.println("You have leveled up! new level is: " + getLevel());
+            System.out.println("You have leveled up! new level is: " + getLevel() + " and benny also heals to his full starting health!");
+            player.setHealth((int) (100*Math.pow(1.2,player.getLevel()))+weapon.getHealthModifier()+armor.getHealthModifier());
             player.presentUnit();
         }
     }

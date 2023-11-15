@@ -5,7 +5,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.*;
 public abstract class AUnit {
     private String name;
     private int strength = 10;
-    private int agility = 10;
+    private int agility = 5;
     private int skill = 100;
     private int lethality = 5;
     private int maxHealth = 0;
@@ -94,10 +94,9 @@ public abstract class AUnit {
         this.level = level;
     }
     public void addLevel(int level) {
-        //Updates all values by 1.1 when you levelup
+        //Updates some values when you levelup
         double mod = 1.1;
         setStrength((int)(getStrength() * Math.pow(mod, level)));
-        setAgility((int)(getAgility() * Math.pow(mod, level)));
         setHealth((int)(getHealth() * Math.pow(mod, level)));
         setLevel(getLevel()+level);
     }
@@ -121,8 +120,9 @@ public abstract class AUnit {
 
     public abstract void presentUnit();
 
+    //Checks if a hit lands whenver attack happens.
     public static boolean hitLands(AUnit attacker, AUnit target){
-        return (int) (Math.random() * 100) + 1 <= (attacker.getSkill()+ - target.getAgility());
+        return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() + target.getAgility());
     }
     //Trades blows between Units
     public void attack(AUnit attacker, AUnit target, Weapon weapon, Armor armor) {
