@@ -21,15 +21,15 @@ public class InputScanner {
         System.out.println("Choose Benny's action...");
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("That's not a valid number! Please try again (Values accepted 1-4)");
+                System.out.println("That's not a valid number! Please try again (Values accepted 1-5)");
                 scanner.next(); // Consume the invalid input
             }
             result = scanner.nextInt();
 
-            if (result < 1 || result > 4) {
-                System.out.println("That's not a valid number! Please try again (Values accepted 1-4)");
+            if (result < 1 || result > 5) {
+                System.out.println("That's not a valid number! Please try again (Values accepted 1-5)");
             }
-        } while (result < 1 || result > 4);
+        } while (result < 1 || result > 5);
 
         return result;
     }

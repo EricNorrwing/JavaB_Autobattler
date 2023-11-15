@@ -12,6 +12,7 @@ public class GameController  {
     //Randomizes an encounter that is either:
     //Presents a fight, find some gold, Find a weapon, find some armor, find a merchant, or find a healing potion.
     //The odds are 60%, 5%, 5%, 10%, 10%, 10%
+
     public void generateEncounter(Player player) throws InterruptedException {
         System.out.println("As benny travels further into the woods he finds... ");
         switch (randomizeEncounter()){
