@@ -6,7 +6,7 @@ import static com.EricNorrwing.Autobattler.models.Colors.RESET;
 
 public class Player extends AUnit{
     private boolean playerTurn = true;
-    private int turnsPlayed;
+    private int turnsPlayed = 0;
     private boolean playerIsDead = true;
     private Weapon weapon = new Weapon();
     private Armor armor = new Armor();
@@ -106,16 +106,15 @@ public class Player extends AUnit{
     //Just has different colors for introduction to seperate them.
     @Override
     public void presentUnit() {
-        System.out.println(
-                CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
-                        "\n"+  GREEN + getHealth() + RESET +  " health" +
-                        "\n" + YELLOW + (getAgility()) +   "%" + RESET + " chance to dodge" +
-                        "\n" + RED + (getStrength()) +   "%" + RESET + " increased damage" +
-                        "\n" + BLUE + (getLethality()) + "%" + RESET + " chance to critically strike" +
-                        "\n" + CYAN + (getSkill()) + "%" + RESET + " chance to hit" +
-                        "\n" + RED + weapon.getBonusDamage() + RESET + " increased damage per hit" +
-                        "\n" + PURPLE + armor.getDamageReduction() + RESET + " less damage taken per hit"
-        );
+        String playerInfo = CYAN_UNDERLINED + getName() + " has the following statistics:" + RESET +
+                "\n" + GREEN + getHealth() + RESET + " health" +
+                "\n" + YELLOW + (getAgility()) + "%" + RESET + " chance to dodge" +
+                "\n" + RED + (getStrength()) + "%" + RESET + " increased damage" +
+                "\n" + BLUE + (getLethality()) + "%" + RESET + " chance to critically strike" +
+                "\n" + CYAN + (getSkill()) + "%" + RESET + " chance to hit" +
+                "\n" + RED + weapon.getBonusDamage() + RESET + " increased damage per hit" +
+                "\n" + PURPLE + armor.getDamageReduction() + RESET + " less damage taken per hit";
+        System.out.println(playerInfo);
 
     }
 

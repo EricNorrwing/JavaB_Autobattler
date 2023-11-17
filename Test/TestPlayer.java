@@ -50,7 +50,6 @@ public class TestPlayer {
         damage = player.getDamage(weapon, armor);
         Assertions.assertEquals(health-damage, enemy.getHealth()-damage);
 
-        //Copy "runFight()" but without sleep
 
 
     }

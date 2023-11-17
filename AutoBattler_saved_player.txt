@@ -1,0 +1,9 @@
+Benny has the following statistics:
+100 health
+5% chance to dodge
+10% increased damage
+5% chance to critically strike
+100% chance to hit
+0 increased damage per hit
+0 less damage taken per hit
+0 monsters have been slain

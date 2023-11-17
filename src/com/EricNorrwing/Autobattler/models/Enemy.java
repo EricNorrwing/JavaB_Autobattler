@@ -239,12 +239,11 @@ public class Enemy extends AUnit{
     //Just has different colors for introduction to seperate them.
     @Override
     public void presentUnit() {
-        System.out.println(
-                YELLOW_UNDERLINED + getName() + " level " + getLevel() + " has the following statistics:" + RESET +
-                        "\n"+  GREEN + getHealth() + RESET +  " health" +
-                        "\n" + YELLOW + getAgility() +   "%" + RESET + " chance to dodge" +
-                        "\n" + RED + getStrength() +   "%" + RESET + " increased damage" +
-                        "\n" + BLUE + getLethality() + "%" + RESET + " chance to critically strike"
-        );
+        String enemyInfo = YELLOW_UNDERLINED + getName() + " level " + getLevel() + " has the following statistics:" + RESET +
+                "\n"+  GREEN + getHealth() + RESET +  " health" +
+                "\n" + YELLOW + getAgility() +   "%" + RESET + " chance to dodge" +
+                "\n" + RED + getStrength() +   "%" + RESET + " increased damage" +
+                "\n" + BLUE + getLethality() + "%" + RESET + " chance to critically strike";
+        System.out.println(enemyInfo);
     }
 }

@@ -1,6 +1,7 @@
 package com.EricNorrwing.Autobattler.viewers;
 import static com.EricNorrwing.Autobattler.models.Colors.*;
 
+import com.EricNorrwing.Autobattler.controllers.FileController;
 import com.EricNorrwing.Autobattler.controllers.GameController;
 import com.EricNorrwing.Autobattler.input.InputScanner;
 import com.EricNorrwing.Autobattler.models.Armor;
@@ -10,6 +11,7 @@ import com.EricNorrwing.Autobattler.models.Weapon;
 public class GameViewer {
     private InputScanner scanner = new InputScanner();
     private GameController gc = new GameController();
+    private FileController fc = new FileController();
     private Player player;
 
 
@@ -29,7 +31,7 @@ public class GameViewer {
                     armor.printItem(armor);
                 }
                 case 3 -> System.exit(0);
-                //case 4 -> saveGame();
+                case 4 -> fc.saveGame(player);
                 case 5 -> disclaimer();
                 default -> System.out.println("Something went wrong with input, you should never reach this default. Im keeping it for shits and giggles");
             }
