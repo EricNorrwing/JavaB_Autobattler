@@ -123,7 +123,7 @@ public class Enemy extends AUnit{
             case 2 -> {
                 //Dragons are very powerful and should be avoided.
                 setStrength((int) (getStrength() * 2.5));
-                setHealth((int) (getHealth() * 2.5));
+                setHealth((int) ((getHealth() + 100) * 2.5));
                 setLethality((getLethality() + 100));
                 setExperience((getExperience() * 5));
             }
@@ -142,7 +142,7 @@ public class Enemy extends AUnit{
             }
             case 5 -> {
                 //Mimic
-                //TODO Always drop loot
+                setMoney(100);
                 setHealth((int) (getHealth() * 1.5));
                 setExperience((int) (getExperience() * 1.1));
             }
@@ -158,9 +158,11 @@ public class Enemy extends AUnit{
                 setExperience((int) (getExperience() * 1.1));
             }
             case 8 -> {
+                //Witchs sucks
+                setHealth(getHealth()-10);
+                setAgility(getAgility()-5);
             }
-            //Witch
-            //TODO Unsure
+
             case 9 -> {
                 //Duelist
                 setLethality((getLethality() + 25));
