@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 
+
 public class TestPlayer {
 
     static GameViewer gv = new GameViewer();
@@ -104,7 +105,9 @@ public class TestPlayer {
     @DisplayName("Test integer overflow")
     @Test
     public void intOverflow(){
-        player.setHealth(2147483647+134985394);
-        System.out.println(player.getHealth());
+        player.setLevel(500);
+        long number = 342234234243L;
+
+        assertTrue(player.getHealth()<= number);
     }
 }

@@ -50,7 +50,6 @@ public class Enemy extends AUnit{
     public void applyLevelModifer(Enemy enemy){
         double modifier = 1.1;
         enemy.setStrength((int) (enemy.getStrength() * Math.pow(modifier, enemy.getLevel())));
-        enemy.setAgility((int) (enemy.getAgility() * Math.pow(modifier, enemy.getLevel())));
         enemy.setHealth((int) (enemy.getHealth() * Math.pow(modifier, enemy.getLevel())));
     }
     public void applyAffixModifiers(){

@@ -107,7 +107,7 @@ public class GameController  {
                 }
             }
             case 6 -> {
-                int health = (int) (100*Math.pow(1.2,player.getLevel()));
+                int health = (int) (100*Math.pow(1.2,(player.getLevel())));
                 System.out.println("Benny finds a healing potion! and it heals him to " + health + " health");
                 player.setHealth(health);
             }

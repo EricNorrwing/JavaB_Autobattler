@@ -1,12 +1,9 @@
 import com.EricNorrwing.Autobattler.controllers.GameController;
-import com.EricNorrwing.Autobattler.models.Armor;
-import com.EricNorrwing.Autobattler.models.Enemy;
-import com.EricNorrwing.Autobattler.models.Player;
-import com.EricNorrwing.Autobattler.models.Weapon;
+import com.EricNorrwing.Autobattler.models.*;
 import com.EricNorrwing.Autobattler.viewers.GameViewer;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.*;
 
 public class TestEnemy {
     static GameViewer gv = new GameViewer();
@@ -25,12 +22,12 @@ public class TestEnemy {
         weapon.generateStarterWeapon();
     }
 
-    @DisplayName("Test enemy strength at very high levels")
+    @DisplayName("Test enemy agility at very high levels to ensure they dont reach 100% dodge")
     @Test
     public void testEnemyStats(){
         player.setLevel(500);
         enemy = gc.generateEnemy(player);
-        enemy.presentUnit();
+        assertTrue(enemy.getAgility()<=100);
 
     }
 }
