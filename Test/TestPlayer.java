@@ -49,10 +49,38 @@ public class TestPlayer {
         health = enemy.getHealth();
         damage = player.getDamage(weapon, armor);
         Assertions.assertEquals(health-damage, enemy.getHealth()-damage);
-
-
-
     }
+
+    @DisplayName("Test so adding many weapons wont change anything other than hp")
+    @Test
+    public void testAddingWeapons(){
+
+        for (int i = 0; i < 10; i++){
+            weapon.generateWeapon();
+            player.equipWeapon(weapon);
+        }
+        weapon = player.getWeapon();
+        weapon.printItem(weapon);
+        player.presentUnit();
+        //Checking agility because it does not increase with levels so we know the base is always the same
+        assertEquals(player.getAgility(), 5+weapon.getAgilityModifier());
+    }
+
+    @DisplayName("Test so adding many armors wont change anything other than hp")
+    @Test
+    public void testAddingArmor(){
+
+        for (int i = 0; i < 10; i++){
+            armor.generateArmor();
+            player.equipArmor(armor);
+        }
+
+        armor.printItem(armor);
+        player.presentUnit();
+        //Checking agility because it does not increase with levels so we know the base is always the same
+        assertEquals(player.getAgility(), 5+armor.getAgilityModifier());
+    }
+
     @DisplayName("Repeated test to ensure damage is always 0 or above")
     @RepeatedTest(500)
     public void damageAbove0 (){
@@ -71,5 +99,12 @@ public class TestPlayer {
             }
             player.setPlayerTurn(!player.isPlayerTurn());
         } while (!AUnit.checkIfDead(player, enemy));
+    }
+
+    @DisplayName("Test integer overflow")
+    @Test
+    public void intOverflow(){
+        player.setHealth(2147483647+134985394);
+        System.out.println(player.getHealth());
     }
 }

@@ -1,0 +1,6 @@
+https://github.com/EricNorrwing/JavaB_Autobattler
+
+Disclaimer:
+Använd option 5 när du startat spelet. Den förklarar basics:
+
+Denna kod borde uppfylla ALLA krav, men jag skriver lite mer tester efter jag laddat upp denna fil.

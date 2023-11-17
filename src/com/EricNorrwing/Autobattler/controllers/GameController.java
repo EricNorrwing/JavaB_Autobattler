@@ -131,6 +131,10 @@ public class GameController  {
                 System.out.println("Benny did however defeat " + RED_BOLD + player.getTurnsPlayed() + RESET + " monsters before his demise");
                 player.setPlayerIsDead(false);
             }
+        } else{
+            int takeDamage = enemy.getDamage(enemy.getWeapon(),enemy.getArmor());
+            player.setHealth(player.getHealth()-takeDamage);
+            System.out.println(enemy.getName() +  " did " + takeDamage + " to you as you fled....");
         }
     }
 

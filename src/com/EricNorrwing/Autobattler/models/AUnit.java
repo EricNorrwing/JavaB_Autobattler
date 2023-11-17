@@ -122,7 +122,7 @@ public abstract class AUnit {
 
     //Checks if a hit lands whenver attack happens.
     public static boolean hitLands(AUnit attacker, AUnit target){
-        return (int) (Math.random() * 100) + 1 <= (attacker.getSkill() + target.getAgility());
+        return (int) (Math.random() * 100) + 1 +attacker.getSkill() - target.getAgility() >= 100;
     }
     //Trades blows between Units
     public void attack(AUnit attacker, AUnit target, Weapon weapon, Armor armor) {

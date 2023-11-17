@@ -118,6 +118,7 @@ public class Weapon implements IItem{
     }
 
     public void generateWeapon(){
+        resetStats();
         generateName();
         initializeStats();
     }
